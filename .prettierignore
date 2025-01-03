@@ -1,0 +1,7 @@
+dist
+binaries
+tailwind.config.js
+eslint.config.js
+components.json
+**/package.json
+**/pnpm-lock.yaml
