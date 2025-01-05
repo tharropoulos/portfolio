@@ -39,7 +39,7 @@ export function Navbar({ links, className, scrollOffset }: NavbarProps) {
               />
             ))}
           </NavigationMenuList>
-          <ModeToggle className="hidden md:block" />
+          <ModeToggle className="hidden md:flex" />
         </NavigationMenu>
       </div>
     </header>

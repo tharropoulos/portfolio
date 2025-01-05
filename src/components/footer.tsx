@@ -31,7 +31,7 @@ function Footer() {
             </a>
           </p>
         </div>
-        <ModeToggle className="px-6 block md:hidden" />
+        <ModeToggle className="px-6 flex md:hidden" />
       </div>
     </footer>
   );
