@@ -1,6 +1,6 @@
 function Footer() {
   return (
-    <footer className="w-full border-t border-muted py-6 pb-12 px-6 mt-32">
+    <footer className="w-full border-t border-muted py-6 pb-12 mt-32 px-4 sm:px-6">
       <div className="mx-auto max-w-screen-sm flex justify-between items-center">
         <p>2025 | Fanis Tharropoulos</p>
         <p className="w-1/2">

@@ -18,7 +18,7 @@ export const Route = createLazyFileRoute("/")({
 function Index() {
   return (
     <>
-      <main className="min-h-screen flex flex-col w-full bg-background  mx-auto max-w-screen-sm gap-10">
+      <main className="min-h-screen flex flex-col w-full bg-background mx-auto max-w-screen-sm gap-10 px-4 sm:px-6">
         <ScrollProgressBar />
         <section id="home" className="mt-32">
           <div className="mb-10">
