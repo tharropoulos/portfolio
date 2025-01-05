@@ -18,6 +18,16 @@ export const Route = createRootRoute({
             href: "#about",
             label: "About",
           },
+          {
+            id: "experience",
+            href: "#experience",
+            label: "Experience",
+          },
+          {
+            id: "school",
+            href: "#school",
+            label: "School",
+          },
         ]}
       />
       <Outlet />
