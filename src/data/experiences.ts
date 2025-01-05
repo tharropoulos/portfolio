@@ -63,7 +63,7 @@ export const experiences = [
   },
   {
     title: "Software Engineer",
-    company: "ENA Media Group",
+    company: "Vertitech",
     timeframe:
       "July 2022 - Sept 2022 · Internship / Oct 2022 - Jan 2023 · Full-time",
     description:
