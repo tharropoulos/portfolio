@@ -29,7 +29,7 @@ export function Navbar({ links, className, scrollOffset }: NavbarProps) {
       <div className="flex justify-between items-center mx-auto max-w-screen-sm px-4 sm:px-6">
         <h1 className="font-logo">fanis</h1>
         <NavigationMenu className="px-6 gap-1">
-          <NavigationMenuList className="">
+          <NavigationMenuList>
             {links.map((link) => (
               <NavigationItem
                 key={link.id}
@@ -39,8 +39,8 @@ export function Navbar({ links, className, scrollOffset }: NavbarProps) {
               />
             ))}
           </NavigationMenuList>
+          <ModeToggle className="hidden md:block" />
         </NavigationMenu>
-        <ModeToggle />
       </div>
     </header>
   );
