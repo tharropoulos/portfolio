@@ -39,8 +39,8 @@ export function Navbar({ links, className, scrollOffset }: NavbarProps) {
               />
             ))}
           </NavigationMenuList>
-          <ModeToggle className="hidden md:flex" />
         </NavigationMenu>
+        <ModeToggle className="hidden md:flex" />
       </div>
     </header>
   );
