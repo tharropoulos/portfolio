@@ -23,7 +23,7 @@ export function NavigationItem({
         {isActive && (
           <motion.span
             layoutId="bubble"
-            className="absolute inset-0 bg-muted rounded-lg -z-[1]"
+            className="absolute inset-0 bg-muted/80 backdrop-blur-sm rounded-lg -z-[1]"
             transition={{
               type: "spring",
               bounce: 0.2,
