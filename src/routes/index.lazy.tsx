@@ -100,7 +100,7 @@ function Index() {
           <div className="w-full max-w-2xl shadow-none py-10 border-b border-muted last:border-none">
             <div className="space-y-1">
               <h3 className="text-2xl font-bold">
-                Msc, Electrical & Computer Engineering {" · "} Aristotle
+                MSc, Electrical & Computer Engineering {" · "} Aristotle
                 University of Thessaloniki
               </h3>
               <span className="text-sm text-muted-foreground">
