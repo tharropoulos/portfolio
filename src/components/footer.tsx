@@ -5,7 +5,7 @@ function Footer() {
     <footer className="w-full border-t border-muted py-6 pb-12 mt-32 px-4 sm:px-6">
       <div className="flex">
         <div className="mx-auto max-w-screen-sm flex flex-col md:flex-row justify-between gap-2 md:gap-0 md:items-center">
-          <p>2025 | Fanis Tharropoulos</p>
+          <p>{new Date().getFullYear()} | Fanis Tharropoulos</p>
           <p className="w-1/2">
             Built with{" "}
             <a href="https://vite.dev/" className="font-bold hover:underline">
