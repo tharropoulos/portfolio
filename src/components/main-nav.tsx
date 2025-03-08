@@ -1,5 +1,6 @@
 import { ModeToggle } from "@/components/mode-toggle";
 import { NavigationItem } from "@/components/navigation-item";
+import { Button } from "@/components/ui/button";
 import {
   NavigationMenu,
   NavigationMenuList,
@@ -13,7 +14,7 @@ export interface NavbarProps {
   scrollOffset?: number;
 }
 
-export function Navbar({ links, className, scrollOffset }: NavbarProps) {
+function Navbar({ links, className, scrollOffset }: NavbarProps) {
   const { activeLink, scrollToSection } = useNavigation({
     links,
     scrollOffset,
@@ -27,8 +28,15 @@ export function Navbar({ links, className, scrollOffset }: NavbarProps) {
       )}
     >
       <div className="mx-auto flex max-w-screen-sm items-center justify-between px-4 sm:px-6">
-        <h1 className="font-logo">fanis</h1>
-        <NavigationMenu className="gap-1 px-6">
+        <Button
+          onClick={() => scrollToSection("about")}
+          variant="ghost"
+          className="hover:bg-transparent"
+        >
+          <h1 className="font-logo">fanis</h1>
+        </Button>
+
+        <NavigationMenu className="w-3/4 gap-1">
           <NavigationMenuList>
             {links.map((link) => (
               <NavigationItem
@@ -46,4 +54,4 @@ export function Navbar({ links, className, scrollOffset }: NavbarProps) {
   );
 }
 
-export default Navbar;
+export { Navbar };

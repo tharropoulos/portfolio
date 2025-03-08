@@ -29,14 +29,14 @@ export default function ScrollProgressBar({
 
   return (
     <div
-      className={cn("fixed start-0 end-0 pointer-events-none", {
+      className={cn("pointer-events-none fixed end-0 start-0", {
         "top-0": position === "top",
         "bottom-0": position === "bottom",
       })}
       style={{ height: `${strokeSize + 2}px` }}
     >
       <span
-        className="bg-primary h-full w-full block rounded-full"
+        className="block h-full w-full rounded-full bg-primary"
         style={{
           backgroundColor: color,
           width: `${percentage}%`,

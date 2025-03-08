@@ -21,10 +21,10 @@ const SocialLink: React.FC<Social> = ({ href, icon: Icon }) => (
     target="_blank"
     rel="noopener noreferrer"
     className={cn(
-      "flex items-center text-muted-foreground hover:text-foreground transition-colors duration-200",
+      "flex items-center text-muted-foreground transition-colors duration-200 hover:text-foreground",
     )}
   >
-    <Icon className="w-5 h-5" />
+    <Icon className="h-4 w-4 md:h-5 md:w-5" />
     <p className="sr-only">{href}</p>
   </a>
 );
@@ -36,7 +36,7 @@ const SocialLinks: React.FC<SocialLinkProps> = ({ className, socials }) => {
         <SocialLink key={index} {...social} />
       ))}
       <a
-        className="text-muted-foreground hover:text-foreground transition-colors duration-200"
+        className="text-sm text-muted-foreground transition-colors duration-200 hover:text-foreground md:text-base"
         href="mailto:ftharropoulos@gmail.com"
       >
         ftharropulos@gmail.com

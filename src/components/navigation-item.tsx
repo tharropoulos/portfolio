@@ -23,7 +23,7 @@ export function NavigationItem({
         {isActive && (
           <motion.span
             layoutId="bubble"
-            className="absolute inset-0 bg-muted/80 backdrop-blur-sm rounded-lg -z-[1]"
+            className="absolute inset-0 -z-[1] rounded-lg bg-muted/80 backdrop-blur-sm sm:text-sm md:text-base"
             transition={{
               type: "spring",
               bounce: 0.2,
@@ -31,7 +31,7 @@ export function NavigationItem({
             }}
           />
         )}
-        <NavigationMenuLink className="relative block text-sm font-medium rounded-lg px-3 py-2 transition-colors z-[2] after:absolute after:bottom-1.5 after:left-3 after:right-3 after:h-px after:bg-foreground after:origin-left after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300">
+        <NavigationMenuLink className="relative z-[2] block rounded-lg px-3 py-2 md:text-sm font-medium transition-colors after:absolute after:bottom-1.5 after:left-3 after:right-3 after:h-px after:origin-left after:scale-x-0 after:bg-foreground after:transition-transform after:duration-300 hover:after:scale-x-100 text-xs">
           {link.label}
         </NavigationMenuLink>
       </button>

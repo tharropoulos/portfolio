@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 
 import { ModeToggle } from "@/components/mode-toggle";
+import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 export interface NavbarProps {
@@ -17,7 +18,9 @@ export function Navbar({ className }: NavbarProps) {
     >
       <div className="mx-auto flex max-w-screen-sm items-center justify-between px-4 sm:px-6">
         <Link to="/" className="font-logo">
-          fanis
+          <Button variant="ghost" className="hover:bg-transparent">
+            <h1 className="font-logo">fanis</h1>
+          </Button>
         </Link>
 
         <ModeToggle className="hidden md:flex" />
