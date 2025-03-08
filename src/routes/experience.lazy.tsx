@@ -1,8 +1,10 @@
 import { createLazyFileRoute, Link } from "@tanstack/react-router";
+import { useEffect } from "react";
 
 import { Arrow } from "@/components/arrow";
 import WorkExperienceList from "@/components/experience-list";
 import Footer from "@/components/footer";
+import { Heading } from "@/components/heading";
 import Navbar from "@/components/navbar";
 import ScrollProgressBar from "@/components/scrollbar";
 import { Button } from "@/components/ui/button";
@@ -13,23 +15,29 @@ export const Route = createLazyFileRoute("/experience")({
 });
 
 function Experience() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <>
       <Navbar />
-      <main className="container mx-auto mt-28 flex min-h-screen w-full max-w-screen-sm flex-col gap-6 bg-background px-4 sm:px-6">
-        <Link to="/">
-          <Button className="group" variant="outline">
-            <Arrow orientation="left" /> Go back
-          </Button>
-        </Link>
-        <ScrollProgressBar />
-        <section id="experience" className="flex flex-col">
-          <h2 className="scroll-m-20 pb-8 text-3xl font-semibold tracking-tight first:mt-0">
-            Experience
-          </h2>
-          <div className="mb-4 h-0.5 w-1/4 bg-teal-400"></div>
-          <WorkExperienceList experiences={experiences} />
-        </section>
+      <main className="container mx-auto flex min-h-screen w-full max-w-screen-sm flex-col gap-6 bg-background">
+        <ScrollProgressBar color="oklch(0.777 0.152 181.912)" />
+        <div className="animate-fadein-slide opacity-0 transition-all [--fadein-delay:10ms]">
+          <Link to="/">
+            <Button
+              className="group mb-4 mt-20 h-8 rounded-full px-3 text-xs md:h-9 md:px-4 md:py-2 md:text-sm lg:mt-28"
+              variant="outline"
+            >
+              <Arrow orientation="left" className="stroke-foreground" /> Go back
+            </Button>
+          </Link>
+          <Heading title="Experience" />
+          <div className="flex flex-col gap-6">
+            <WorkExperienceList experiences={experiences} />
+          </div>
+        </div>
       </main>
       <Footer />
     </>
