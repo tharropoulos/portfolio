@@ -1,7 +1,6 @@
 import { createRootRoute, Outlet } from "@tanstack/react-router";
 
 import { Navbar } from "@/components/main-nav";
-import ScrollProgressBar from "@/components/scrollbar";
 
 export const Route = createRootRoute({
   component: () => (
