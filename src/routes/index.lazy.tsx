@@ -34,8 +34,8 @@ function Index() {
             </div>
             <p className="leading-6 text-muted-foreground md:text-xl">
               Hey! I'm Fanis, a software engineer from Greece. This is a small
-              cove of the internet where I share my experiences, and projects
-              and generally things I'm stoked about.
+              cove of the internet where I share my experiences, projects and
+              generally things I'm stoked about.
             </p>
             <SocialLinks
               className="my-5 md:my-10"
