@@ -7,9 +7,11 @@ import { createLazyFileRoute } from "@tanstack/react-router";
 
 import WorkExperienceList from "@/components/experience-list";
 import Footer from "@/components/footer";
+import { Heading } from "@/components/heading";
+import { InterestsList } from "@/components/interests-list";
 import ScrollProgressBar from "@/components/scrollbar";
 import SocialLinks from "@/components/socials";
-import { experiences } from "@/data/experiences";
+import { experiences, school } from "@/data/experiences";
 
 export const Route = createLazyFileRoute("/")({
   component: Index,
@@ -18,145 +20,135 @@ export const Route = createLazyFileRoute("/")({
 function Index() {
   return (
     <>
-      <main className="min-h-screen flex flex-col w-full bg-background mx-auto max-w-screen-sm gap-10 px-4 sm:px-6">
-        <ScrollProgressBar />
-        <section id="home" className="mt-32">
-          <div className="mb-10">
-            <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl mb-3">
-              Fanis Tharropoulos
-            </h1>
-            <h3 className="scroll-m-20 text-2xl font-semibold tracking-tight">
-              Software Engineer
-            </h3>
-          </div>
-          <p className="text-xl text-muted-foreground">
-            Software engineer with an MSc in Electrical and Computer
-            Engineering, passionate about free and open source software.
-          </p>
-          <SocialLinks
-            className="my-10"
-            socials={[
-              {
-                href: "https://github.com/tharropoulos",
-                icon: GitHubLogoIcon,
-              },
-              {
-                href: "https://www.linkedin.com/in/fanis-tharropoulos-78012622b/",
-                icon: LinkedInLogoIcon,
-              },
-              {
-                href: "https://x.com/ftharropoulos",
-                icon: TwitterLogoIcon,
-              },
-            ]}
-          />
-        </section>
-        <section id="about" className="flex flex-col">
-          <h2 className="scroll-m-20 pb-2 text-3xl font-semibold tracking-tight first:mt-0">
-            About Me
-          </h2>
-          <p className="leading-7 [&:not(:first-child)]:mt-6 dark:text-zinc-200">
-            Originally from Kavala, Greece, I developed a passion for computers
-            through gaming from a young age, which, along with my strong
-            background in mathematics, led me to study{" "}
-            <b>
-              Electrical and Computer Engineering at the Aristotle University of
-              Thessaloniki
-            </b>
-            .
-          </p>
-          <p className="leading-7 [&:not(:first-child)]:mt-6 dark:text-zinc-200">
-            During my master's thesis, I focused on{" "}
-            <b>enhancing AI code assistants' performance</b>, specifically
-            GitHub Copilot, developing <b>machine learning </b> approaches to
-            improve <b>prompt engineering</b> while working extensively with
-            Python and TypeScript.
-          </p>
-          <p className="leading-7 [&:not(:first-child)]:mt-6 dark:text-zinc-200">
-            Currently, I'm a Software Engineer at{" "}
-            <a
-              href="https://typesense.org/"
-              className="font-bold hover:underline"
-            >
-              Typesense
-            </a>
-            , an open-source search engine alternative to Algolia and Pinecone,
-            where I maintain our language clients, contribute to core
-            development and provide community support through demos,
-            documentation, guides and direct user assistance through Slack and
-            GitHub issues.
-          </p>
-        </section>
-        <section id="experience" className="flex flex-col">
-          <h2 className="scroll-m-20 pb-2 text-3xl font-semibold tracking-tight first:mt-0">
-            Experience
-          </h2>
-          <WorkExperienceList experiences={experiences} />
-        </section>
-        <section id="school" className="flex flex-col">
-          <h2 className="scroll-m-20 pb-2 text-3xl font-semibold tracking-tight first:mt-0">
-            School
-          </h2>
-          <div className="w-full max-w-2xl shadow-none py-10 border-b border-muted last:border-none">
-            <div className="space-y-1">
-              <h3 className="text-2xl font-bold">
-                MSc, Electrical & Computer Engineering {" · "} Aristotle
-                University of Thessaloniki
+      <main className="container mx-auto flex min-h-screen w-full max-w-screen-sm flex-col gap-6 bg-background">
+        <ScrollProgressBar color="oklch(0.777 0.152 181.912)" />
+        <div className="animate-fadein-slide opacity-0 transition-all [--fadein-delay:0ms]">
+          <section id="home" className="mt-24 lg:mt-32">
+            <div className="mb-10">
+              <h1 className="mb-3 scroll-m-20 text-3xl font-extrabold tracking-tight md:text-4xl lg:text-5xl">
+                Fanis Tharropoulos
+              </h1>
+              <h3 className="scroll-m-20 text-lg font-semibold tracking-tight md:text-2xl">
+                Software Engineer
               </h3>
-              <span className="text-sm text-muted-foreground">
-                Dec 2018 - Dec 2024
-              </span>
             </div>
-            <p className="leading-7 [&:not(:first-child)]:mt-6 dark:text-zinc-200">
-              MSc in Electrical and Computer Engineering at Aristotle University
-              of Thessaloniki, completing a comprehensive curriculum of 51
-              courses totaling 316 ECTS credits. The program covered both
-              software and hardware domains, including advanced courses in
-              Software Engineering, Machine Learning, and Control Systems. Core
-              studies included Computer Architecture, Operating Systems, and
-              Database Design, while also diving deep into electrical
-              engineering with Power Systems, Electromagnetic Fields, and
-              Nuclear Technology. Notable coursework in Optimization Techniques,
-              Dynamic Programming, and Robotics bridged theoretical foundations
-              with practical applications.
+            <p className="leading-6 text-muted-foreground md:text-xl">
+              Hey! I'm Fanis, a software engineer from Greece. This is a small
+              cove of the internet where I share my experiences, and projects
+              and generally things I'm stoked about.
             </p>
-            <p className="leading-7 [&:not(:first-child)]:mt-6 dark:text-zinc-200">
-              My thesis, "Evaluating source code generated by LLMs and improving
-              the prompt engineering process," focused on analyzing and
-              enhancing AI code assistants' performance, specifically GitHub
-              Copilot. I developed a full-stack application called Backlogged
-              using the T3 stack to collect and analyze 525 code prompts across
-              different development scenarios.
-            </p>
+            <SocialLinks
+              className="my-5 md:my-10"
+              socials={[
+                {
+                  href: "https://github.com/tharropoulos",
+                  icon: GitHubLogoIcon,
+                },
+                {
+                  href: "https://www.linkedin.com/in/fanis-tharropoulos-78012622b/",
+                  icon: LinkedInLogoIcon,
+                },
+                {
+                  href: "https://x.com/ftharropoulos",
+                  icon: TwitterLogoIcon,
+                },
+              ]}
+            />
+          </section>
+          <div className="flex flex-col gap-20">
+            <section id="about" className="flex flex-col">
+              <Heading title="About" />
+              <div className="flex w-full flex-col">
+                <div className="overflow-hidden sm:w-full lg:h-[30rem]">
+                  <img
+                    src="grad.png"
+                    alt=""
+                    className="h-full animate-pan-zoom bg-cover object-cover"
+                  />
+                </div>
+                <p className="text-sm font-medium md:text-base">
+                  Graduation day!
+                </p>
+                <p className="text-xs text-muted-foreground md:text-sm">
+                  Dec 20, 2024
+                </p>
+              </div>
+              <p className="text-sm leading-6 dark:text-zinc-200 md:text-base md:leading-7 [&:not(:first-child)]:mt-4 md:[&:not(:first-child)]:mt-6">
+                I grew up in Kavala, Greece, where my love for computers began
+                with gaming as a kid. That passion, combined with my math
+                skills, led me to study{" "}
+                <span className="text-sm font-semibold underline decoration-teal-400 decoration-dashed md:text-base">
+                  Electrical and Computer Engineering at the Aristotle
+                  University of Thessaloniki
+                </span>
+                .
+              </p>
+              <p className="text-sm leading-6 dark:text-zinc-200 md:text-base md:leading-7 [&:not(:first-child)]:mt-4 md:[&:not(:first-child)]:mt-6">
+                For my master's thesis, I focused on{" "}
+                <span className="text-sm font-semibold underline decoration-teal-400 decoration-dashed md:text-base">
+                  assessing AI code assistants' performance
+                </span>
+                , specifically GitHub Copilot. I built some machine learning
+                tools to improve how these systems respond to prompts, diving
+                deep into Python and TypeScript along the way.
+              </p>
+              <p className="text-sm leading-6 dark:text-zinc-200 md:text-base md:leading-7 [&:not(:first-child)]:mt-4 md:[&:not(:first-child)]:mt-6">
+                These days, I'm a Software Engineer at{" "}
+                <a
+                  href="https://typesense.org/"
+                  className="font-extrabold text-teal-600 hover:underline dark:text-teal-300"
+                >
+                  Typesense
+                </a>
+                , an open-source search engine for building delightful search
+                experiences. I maintain our language clients, integrations with
+                frameworks, contribute to core development and provide community
+                support through demos, documentation, guides and direct user
+                assistance through Slack and GitHub issues.
+              </p>
+              <p className="text-sm leading-6 dark:text-zinc-200 md:text-base md:leading-7 [&:not(:first-child)]:mt-4 md:[&:not(:first-child)]:mt-6">
+                I'm currently working on modernizing our{" "}
+                <a
+                  href="https://github.com/tharropoulos/typesense-rails/tree/ts"
+                  className="font-extrabold text-teal-600 hover:underline dark:text-teal-300"
+                >
+                  Ruby on Rails
+                </a>{" "}
+                integration and building a new{" "}
+                <a
+                  href="https://github.com/tharropoulos/typesense-rails/tree/ts"
+                  className="font-extrabold text-teal-600 hover:underline dark:text-teal-300"
+                >
+                  demo app
+                </a>{" "}
+                with it to showcase Typesense's capabilities.
+              </p>
+            </section>
+            <section id="work" className="flex flex-col">
+              <Heading
+                title="Work"
+                link={{
+                  to: "/experience",
+                  preload: "render",
+                  resetScroll: true,
+                  reloadDocument: false,
+                  label: "My full work experience",
+                }}
+              />
+              <WorkExperienceList experiences={[...experiences.slice(0, 1)]} />
+            </section>
+            <section id="school" className="flex flex-col">
+              <Heading title="School" />
+              <WorkExperienceList experiences={school} />
+            </section>
+            <section id="interests" className="flex flex-col">
+              <Heading title="Stuff I'm into" />
+              <InterestsList />
+            </section>
           </div>
-        </section>
+        </div>
       </main>
       <Footer />
     </>
   );
 }
-
-const SubmitButton = () => {
-  return (
-    <button className="group flex items-center justify-center h-8 w-8 rounded-full border border-zinc-300 dark:border-zinc-700 hover:bg-zinc-200 hover:dark:bg-zinc-800 transition-colors duration-300 ease-in-out">
-      <svg
-        viewBox="0 0 24 24"
-        className="size-4 stroke-[3px] fill-none stroke-current opacity-50 group-hover:opacity-100 transition-opacity duration-300 ease-in-out"
-      >
-        <line
-          x1="5"
-          y1="12"
-          x2="19"
-          y2="12"
-          className="scale-x-0 translate-x-[10px] group-hover:translate-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-in-out"
-        />
-        <polyline
-          points="12 5 19 12 12 19"
-          className="-translate-x-2 group-hover:translate-x-0 transition-transform duration-300 ease-in-out"
-        />
-      </svg>
-    </button>
-  );
-};
-
-export default SubmitButton;
