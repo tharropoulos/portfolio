@@ -5,6 +5,7 @@ import {
 } from "@radix-ui/react-icons";
 import { createLazyFileRoute } from "@tanstack/react-router";
 
+import { AnimatedUnderline } from "@/components/animated-underline";
 import WorkExperienceList from "@/components/experience-list";
 import Footer from "@/components/footer";
 import { Heading } from "@/components/heading";
@@ -107,21 +108,26 @@ function Index() {
                 assistance through Slack and GitHub issues.
               </p>
               <p className="text-sm leading-6 dark:text-zinc-200 md:text-base md:leading-7 [&:not(:first-child)]:mt-4 md:[&:not(:first-child)]:mt-6">
-                I'm currently working on modernizing our{" "}
+                I'm currently working on{" "}
                 <a
-                  href="https://github.com/tharropoulos/typesense-rails/tree/ts"
-                  className="font-extrabold text-teal-600 hover:underline dark:text-teal-300"
+                  href="https://kyma.ink"
+                  className="font-extrabold text-sky-600 transition-all duration-200 hover:text-sky-900"
                 >
-                  Ruby on Rails
+                  <AnimatedUnderline
+                    animationDelay={0.1}
+                    className="stroke-sky-600 transition-all duration-200 hover:stroke-sky-900"
+                  >
+                    Kyma
+                  </AnimatedUnderline>
                 </a>{" "}
-                integration and building a new{" "}
+                (Κῦμα), a TUI presentation tool with a focus on eye candy and
+                ease of use.{" "}
                 <a
-                  href="https://github.com/tharropoulos/typesense-rails/tree/ts"
-                  className="font-extrabold text-teal-600 hover:underline dark:text-teal-300"
+                  href="https://github.com/museslabs/kyma"
+                  className="font-extrabold text-sky-600 hover:underline dark:text-sky-300"
                 >
-                  demo app
+                  Drop us a ⭐
                 </a>{" "}
-                with it to showcase Typesense's capabilities.
               </p>
             </section>
             <section id="work" className="flex flex-col">
