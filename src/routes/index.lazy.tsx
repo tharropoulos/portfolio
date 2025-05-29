@@ -111,11 +111,11 @@ function Index() {
                 I'm currently working on{" "}
                 <a
                   href="https://kyma.ink"
-                  className="font-extrabold text-sky-600 transition-all duration-200 hover:text-sky-900"
+                  className="font-extrabold text-sky-600 transition-all duration-200 hover:text-sky-900 dark:text-sky-300"
                 >
                   <AnimatedUnderline
                     animationDelay={0.1}
-                    className="stroke-sky-600 transition-all duration-200 hover:stroke-sky-900"
+                    className="stroke-sky-600 transition-all duration-200 hover:stroke-sky-900 dark:stroke-sky-300"
                   >
                     Kyma
                   </AnimatedUnderline>
