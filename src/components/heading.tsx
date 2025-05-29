@@ -20,7 +20,7 @@ function Heading({
           <Link {...link} resetScroll={true}>
             <Button
               variant={"ghost"}
-              className="group h-8 rounded-full px-3 text-xs md:h-9 md:px-4 md:py-2 md:text-sm"
+              className="group h-8 rounded-full px-3 text-xs transition-all duration-300 hover:border hover:border-input hover:bg-accent hover:text-accent-foreground hover:shadow-sm md:h-9 md:w-[210px] md:px-4 md:py-2 md:text-sm"
             >
               {link.label}
               <Arrow orientation="right" className="stroke-foreground" />
