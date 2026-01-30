@@ -23,7 +23,7 @@ if (!rootElement.innerHTML) {
   root.render(
     <StrictMode>
       <Analytics />
-      <ThemeProvider defaultTheme="system" storageKey="vite-ui-theme">
+      <ThemeProvider defaultTheme="light" storageKey="vite-ui-theme">
         <RouterProvider router={router} />
       </ThemeProvider>
     </StrictMode>,
