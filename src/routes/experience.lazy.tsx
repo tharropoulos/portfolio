@@ -5,7 +5,6 @@ import { Arrow } from "@/components/arrow";
 import WorkExperienceList from "@/components/experience-list";
 import Footer from "@/components/footer";
 import { Heading } from "@/components/heading";
-import Navbar from "@/components/navbar";
 import ScrollProgressBar from "@/components/scrollbar";
 import { Button } from "@/components/ui/button";
 import { experiences } from "@/data/experiences";
@@ -21,7 +20,6 @@ function Experience() {
 
   return (
     <>
-      <Navbar />
       <main className="container mx-auto flex min-h-screen w-full max-w-screen-sm flex-col gap-6 bg-background">
         <ScrollProgressBar color="oklch(0.777 0.152 181.912)" />
         <div className="animate-fadein-slide opacity-0 transition-all [--fadein-delay:10ms]">
