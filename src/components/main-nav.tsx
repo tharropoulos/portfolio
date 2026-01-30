@@ -1,4 +1,3 @@
-import { ModeToggle } from "@/components/mode-toggle";
 import { NavigationItem } from "@/components/navigation-item";
 import { Button } from "@/components/ui/button";
 import {
@@ -48,7 +47,6 @@ function Navbar({ links, className, scrollOffset }: NavbarProps) {
             ))}
           </NavigationMenuList>
         </NavigationMenu>
-        <ModeToggle className="hidden md:flex" />
       </div>
     </header>
   );
