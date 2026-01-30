@@ -34,9 +34,8 @@ function Index() {
               </h3>
             </div>
             <p className="leading-6 text-muted-foreground md:text-xl">
-              Hey! I'm Fanis, a software engineer from Greece. This is a small
-              cove of the internet where I share my experiences, projects and
-              generally things I'm stoked about.
+              Hey, I’m Fanis, a software engineer living in Athens, Greece.
+              This is where I share projects, experiences, and things I’m excited about.
             </p>
             <SocialLinks
               className="my-5 md:my-10"
@@ -75,37 +74,38 @@ function Index() {
                 </p>
               </div>
               <p className="text-sm leading-6 dark:text-zinc-200 md:text-base md:leading-7 [&:not(:first-child)]:mt-4 md:[&:not(:first-child)]:mt-6">
-                I grew up in Kavala, Greece, where my love for computers began
-                with gaming as a kid. That passion, combined with my math
-                skills, led me to study{" "}
+                I’m a{" "}
                 <span className="text-sm font-semibold underline decoration-teal-400 decoration-dashed md:text-base">
-                  Electrical and Computer Engineering at the Aristotle
-                  University of Thessaloniki
+                  Software Engineer
                 </span>
-                .
-              </p>
-              <p className="text-sm leading-6 dark:text-zinc-200 md:text-base md:leading-7 [&:not(:first-child)]:mt-4 md:[&:not(:first-child)]:mt-6">
-                For my master's thesis, I focused on{" "}
-                <span className="text-sm font-semibold underline decoration-teal-400 decoration-dashed md:text-base">
-                  assessing AI code assistants' performance
-                </span>
-                , specifically GitHub Copilot. I built some machine learning
-                tools to improve how these systems respond to prompts, diving
-                deep into Python and TypeScript along the way.
-              </p>
-              <p className="text-sm leading-6 dark:text-zinc-200 md:text-base md:leading-7 [&:not(:first-child)]:mt-4 md:[&:not(:first-child)]:mt-6">
-                These days, I'm a Software Engineer at{" "}
+                {" "}at{" "}
                 <a
                   href="https://typesense.org/"
                   className="font-extrabold text-teal-600 hover:underline dark:text-teal-300"
                 >
                   Typesense
                 </a>
-                , an open-source search engine for building delightful search
-                experiences. I maintain our language clients, integrations with
-                frameworks, contribute to core development and provide community
-                support through demos, documentation, guides and direct user
-                assistance through Slack and GitHub issues.
+                , working on an open-source search engine and its language
+                clients, framework integrations, and core features.
+              </p>
+              <p className="text-sm leading-6 dark:text-zinc-200 md:text-base md:leading-7 [&:not(:first-child)]:mt-4 md:[&:not(:first-child)]:mt-6">
+                I studied{" "}
+                <span className="text-sm font-semibold underline decoration-teal-400 decoration-dashed md:text-base">
+                  Electrical and Computer Engineering at the Aristotle
+                  University of Thessaloniki
+                </span>
+                , with my master’s thesis exploring{" "}
+                <span className="text-sm font-semibold underline decoration-teal-400 decoration-dashed md:text-base">
+                  how to evaluate and improve AI code assistants
+                </span>
+                {" "} like GitHub Copilot.
+              </p>
+              <p className="text-sm leading-6 dark:text-zinc-200 md:text-base md:leading-7 [&:not(:first-child)]:mt-4 md:[&:not(:first-child)]:mt-6">
+                I enjoy all things FOSS, and especially {" "}
+                <span className="text-sm font-semibold underline decoration-teal-400 decoration-dashed md:text-base">
+                  building developer tools in Python, TypeScript
+                </span>
+                {" "}&amp; more, alongside helping the community through documentation, demos, and direct support.
               </p>
               <p className="text-sm leading-6 dark:text-zinc-200 md:text-base md:leading-7 [&:not(:first-child)]:mt-4 md:[&:not(:first-child)]:mt-6">
                 I'm currently working on{" "}
