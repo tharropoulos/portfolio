@@ -95,24 +95,49 @@ export function LogoButton({ onClick, children = "fanis" }: LogoButtonProps) {
     return () => clearInterval(interval);
   }, [isHovering]);
 
+  const playMorphAnimation = () => {
+    controls.start({
+      scaleX: [1, 0.2, 0.2, 1.15, 0.92, 1.06, 0.98, 1],
+      scaleY: [1, 1.4, 1.4, 0.8, 1.12, 0.95, 1.03, 1],
+      transition: {
+        duration: 1,
+        times: [0, 0.12, 0.35, 0.5, 0.65, 0.8, 0.92, 1],
+        ease: [0.22, 1, 0.36, 1],
+      },
+    });
+  };
+
   const handleMouseLeave = () => {
     setIsHovering(false);
     if (fontIndex !== fontBeforeHoverRef.current) {
-      controls.start({
-        scaleX: [1, 0.2, 0.2, 1.15, 0.92, 1.06, 0.98, 1],
-        scaleY: [1, 1.4, 1.4, 0.8, 1.12, 0.95, 1.03, 1],
-        transition: {
-          duration: 1,
-          times: [0, 0.12, 0.35, 0.5, 0.65, 0.8, 0.92, 1],
-          ease: [0.22, 1, 0.36, 1],
-        },
-      });
+      playMorphAnimation();
     }
+  };
+
+  const handleClick = () => {
+    if (isHovering) {
+      handleMouseLeave();
+      return;
+    }
+
+    const cycles = 5 + Math.floor(Math.random() * 4);
+    let count = 0;
+
+    const interval = setInterval(() => {
+      setFontIndex((i) => (i + 1) % FONTS.length);
+      count++;
+      if (count >= cycles) {
+        clearInterval(interval);
+        playMorphAnimation();
+      }
+    }, 80);
+
+    if (onClick) onClick();
   };
 
   return (
     <Button
-      onClick={onClick}
+      onClick={handleClick}
       variant="ghost"
       className="hover:bg-transparent pl-0"
       onMouseEnter={handleMouseEnter}
