@@ -1,10 +1,8 @@
 ---
 import HomePage from "@/components/home-page.astro";
-import ScrollProgressBar from "@/components/scrollbar";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 ---
 
 <BaseLayout currentPath="/">
-  <ScrollProgressBar client:only="react" color="oklch(0.777 0.152 181.912)" />
   <HomePage />
 </BaseLayout>

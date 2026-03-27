@@ -6,16 +6,15 @@ import React from "react";
 import { cn } from "@/lib/utils";
 
 interface ScrollProgressBarType {
-  position?: "bottom" | "top";
   color?: string;
   strokeSize?: number;
-  showPercentage?: boolean;
+  className?: string;
 }
 
 export default function ScrollProgressBar({
-  position = "bottom",
   color = "hsl(var(--primary))",
   strokeSize = 2,
+  className,
 }: ScrollProgressBarType) {
   const { scrollYProgress } = useScroll();
 
@@ -29,10 +28,7 @@ export default function ScrollProgressBar({
 
   return (
     <div
-      className={cn("pointer-events-none fixed end-0 start-0", {
-        "top-0": position === "top",
-        "bottom-0": position === "bottom",
-      })}
+      className={cn("pointer-events-none absolute inset-x-0 bottom-0 z-20", className)}
       style={{ height: `${strokeSize + 2}px` }}
     >
       <span

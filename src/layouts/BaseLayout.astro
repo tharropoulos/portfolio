@@ -1,5 +1,6 @@
 ---
 import Navbar from "@/components/main-nav";
+import ScrollProgressBar from "@/components/scrollbar";
 import "@/index.css";
 
 interface Props {
@@ -35,7 +36,14 @@ const links = [
   </head>
   <body>
     <div class="flex min-h-screen w-full flex-col items-center bg-background">
-      <Navbar client:load currentPath={currentPath} links={links} />
+      <div class="fixed inset-x-0 top-0 z-50">
+        <Navbar client:load currentPath={currentPath} links={links} />
+        <ScrollProgressBar
+          client:only="react"
+          color="oklch(0.777 0.152 181.912)"
+          strokeSize={2}
+        />
+      </div>
       <slot />
     </div>
   </body>
