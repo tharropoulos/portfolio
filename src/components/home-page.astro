@@ -11,22 +11,19 @@ import Footer from "@/components/footer";
 import { Heading } from "@/components/heading";
 import { InterestsList } from "@/components/interests-list";
 import SocialLinks from "@/components/socials";
+import { profile } from "@/data/profile";
 import { experiences, school } from "@/data/experiences";
 
-const socials = [
-  {
-    href: "https://github.com/tharropoulos",
-    icon: GitHubLogoIcon,
-  },
-  {
-    href: "https://www.linkedin.com/in/fanis-tharropoulos-78012622b/",
-    icon: LinkedInLogoIcon,
-  },
-  {
-    href: "https://x.com/ftharropoulos",
-    icon: TwitterLogoIcon,
-  },
-];
+const socialIcons = {
+  github: GitHubLogoIcon,
+  linkedin: LinkedInLogoIcon,
+  x: TwitterLogoIcon,
+} as const;
+
+const socials = profile.socials.map((social) => ({
+  href: social.href,
+  icon: socialIcons[social.id],
+}));
 ---
 
 <>
@@ -35,15 +32,14 @@ const socials = [
       <section id="home" class="mt-24 lg:mt-32">
         <div class="mb-10">
           <h1 class="mb-3 scroll-m-20 text-3xl font-extrabold tracking-tight md:text-4xl lg:text-5xl">
-            Fanis Tharropoulos
+            {profile.name}
           </h1>
           <h3 class="scroll-m-20 text-lg font-semibold tracking-tight md:text-2xl">
-            Software Engineer
+            {profile.role}
           </h3>
         </div>
         <p class="leading-6 text-muted-foreground md:text-xl">
-          Hey, I'm Fanis, a software engineer living in Athens, Greece. This is
-          where I share projects, experiences, and things I'm excited about.
+          {profile.intro}
         </p>
         <SocialLinks className="my-5 md:my-10" socials={socials} />
       </section>
@@ -53,53 +49,50 @@ const socials = [
           <div class="flex w-full flex-col">
             <div class="overflow-hidden sm:w-full lg:h-[30rem]">
               <img
-                src="/grad.png"
-                alt="Graduation day"
+                src={profile.photo.src}
+                alt={profile.photo.alt}
                 class="h-full animate-pan-zoom bg-cover object-cover"
               />
             </div>
-            <p class="text-sm font-medium md:text-base">Graduation day!</p>
-            <p class="text-xs text-muted-foreground md:text-sm">Dec 20, 2024</p>
+            <p class="text-sm font-medium md:text-base">{profile.photo.caption}</p>
+            <p class="text-xs text-muted-foreground md:text-sm">{profile.photo.date}</p>
           </div>
           <p class="text-sm leading-6 dark:text-zinc-200 md:text-base md:leading-7 [&:not(:first-child)]:mt-4 md:[&:not(:first-child)]:mt-6">
-            I'm a{" "}
+            {profile.about[0].beforeHighlight}
             <span class="text-sm font-semibold underline decoration-teal-400 decoration-dashed md:text-base">
-              Software Engineer
-            </span>{" "}
-            at{" "}
+              {profile.about[0].highlight}
+            </span>
+            {profile.about[0].afterHighlight}
             <a
-              href="https://typesense.org/"
+              href={profile.about[0].emphasis.href}
               class="font-extrabold text-teal-600 hover:underline dark:text-teal-300"
             >
-              Typesense
+              {profile.about[0].emphasis.label}
             </a>
-            , working on an open-source search engine and its language clients,
-            framework integrations, and core features.
+            {profile.about[0].afterEmphasis}
           </p>
           <p class="text-sm leading-6 dark:text-zinc-200 md:text-base md:leading-7 [&:not(:first-child)]:mt-4 md:[&:not(:first-child)]:mt-6">
-            I studied{" "}
+            {profile.about[1].beforeHighlight}
             <span class="text-sm font-semibold underline decoration-teal-400 decoration-dashed md:text-base">
-              Electrical and Computer Engineering at the Aristotle University of
-              Thessaloniki
+              {profile.about[1].highlight}
             </span>
-            , with my master's thesis exploring{" "}
+            {profile.about[1].afterHighlight}
             <span class="text-sm font-semibold underline decoration-teal-400 decoration-dashed md:text-base">
-              how to evaluate and improve AI code assistants
+              {profile.about[1].emphasis.label}
             </span>{" "}
-            like GitHub Copilot.
+            {profile.about[1].afterEmphasis}
           </p>
           <p class="text-sm leading-6 dark:text-zinc-200 md:text-base md:leading-7 [&:not(:first-child)]:mt-4 md:[&:not(:first-child)]:mt-6">
-            I enjoy all things FOSS, and especially{" "}
+            {profile.about[2].beforeHighlight}
             <span class="text-sm font-semibold underline decoration-teal-400 decoration-dashed md:text-base">
-              building developer tools in Python, TypeScript
-            </span>{" "}
-            &amp; more, alongside helping the community through documentation,
-            demos, and direct support.
+              {profile.about[2].highlight}
+            </span>
+            {profile.about[2].afterHighlight}
           </p>
           <p class="text-sm leading-6 dark:text-zinc-200 md:text-base md:leading-7 [&:not(:first-child)]:mt-4 md:[&:not(:first-child)]:mt-6">
             I'm currently working on{" "}
             <a
-              href="https://kyma.ink"
+              href={profile.currentProject.href}
               class="font-extrabold text-sky-600 transition-all duration-200 hover:text-sky-900 dark:text-sky-300"
             >
               <AnimatedUnderline
@@ -107,13 +100,12 @@ const socials = [
                 animationDelay={0.1}
                 className="stroke-sky-600 transition-all duration-200 hover:stroke-sky-900 dark:stroke-sky-300"
               >
-                Kyma
+                {profile.currentProject.name}
               </AnimatedUnderline>
             </a>{" "}
-            (Κῦμα), a TUI presentation tool with a focus on eye candy and ease
-            of use.{" "}
+            {profile.currentProject.description}{" "}
             <a
-              href="https://github.com/museslabs/kyma"
+              href={profile.currentProject.repositoryHref}
               class="font-extrabold text-sky-600 hover:underline dark:text-sky-300"
             >
               Drop us a star
