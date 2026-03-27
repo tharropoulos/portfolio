@@ -1,5 +1,5 @@
 import { motion } from "motion/react";
-import { useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { cn } from "@/lib/utils";
 
@@ -20,7 +20,7 @@ export function AnimatedUnderline({
   const [isVisible, setIsVisible] = useState(false);
   const [linkWidth, setLinkWidth] = useState(0);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const measureWidth = () => {
       if (ref.current) {
         setLinkWidth(ref.current.offsetWidth);
@@ -36,7 +36,7 @@ export function AnimatedUnderline({
     }
   }, []);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (!ref.current) return;
 
     const observer = new IntersectionObserver(

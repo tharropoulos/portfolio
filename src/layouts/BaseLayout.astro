@@ -1,0 +1,42 @@
+---
+import Navbar from "@/components/main-nav";
+import "@/index.css";
+
+interface Props {
+  title?: string;
+  description?: string;
+  currentPath: string;
+}
+
+const {
+  title = "Fanis Tharropoulos | Software Engineer",
+  description = "Software engineer based in Athens, Greece. Projects, experience, and things I'm excited about.",
+  currentPath,
+} = Astro.props;
+
+const links = [
+  { id: "about", href: "#about", label: "About" },
+  { id: "work", href: "#work", label: "Work" },
+  { id: "school", href: "#school", label: "School" },
+  { id: "interests", href: "#interests", label: "Interests" },
+];
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <title>{title}</title>
+  </head>
+  <body>
+    <div class="flex min-h-screen w-full flex-col items-center bg-background">
+      <Navbar client:load currentPath={currentPath} links={links} />
+      <slot />
+    </div>
+  </body>
+</html>

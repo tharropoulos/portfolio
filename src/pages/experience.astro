@@ -1,0 +1,14 @@
+---
+import ExperiencePage from "@/components/experience-page";
+import ScrollProgressBar from "@/components/scrollbar";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  currentPath="/experience"
+  title="Experience | Fanis Tharropoulos"
+  description="Full work experience for Fanis Tharropoulos."
+>
+  <ScrollProgressBar client:only="react" color="oklch(0.777 0.152 181.912)" />
+  <ExperiencePage />
+</BaseLayout>
