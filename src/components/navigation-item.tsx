@@ -4,7 +4,7 @@ import {
   NavigationMenuItem,
   NavigationMenuLink,
 } from "@/components/ui/navigation-menu";
-import { NavigationLink } from "@/hooks/useNavigation";
+import type { NavigationLink } from "@/hooks/useNavigation";
 
 interface NavigationItemProps {
   link: NavigationLink;

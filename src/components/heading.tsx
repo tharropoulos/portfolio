@@ -1,5 +1,3 @@
-import { Link, LinkProps } from "@tanstack/react-router";
-
 import { Arrow } from "@/components/arrow";
 import { Button } from "@/components/ui/button";
 
@@ -8,7 +6,7 @@ function Heading({
   link,
 }: {
   title: string;
-  link?: LinkProps & { label: string };
+  link?: { href: string; label: string };
 }) {
   return (
     <>
@@ -17,7 +15,7 @@ function Heading({
           {title}
         </h2>
         {link && (
-          <Link {...link} resetScroll={true}>
+          <a href={link.href}>
             <Button
               variant={"ghost"}
               className="group h-8 rounded-full px-3 text-xs transition-all duration-300 hover:border hover:border-input hover:bg-accent hover:text-accent-foreground hover:shadow-sm md:h-9 md:w-[210px] md:px-4 md:py-2 md:text-sm"
@@ -25,7 +23,7 @@ function Heading({
               {link.label}
               <Arrow orientation="right" className="stroke-foreground" />
             </Button>
-          </Link>
+          </a>
         )}
       </div>
       <div className="mb-2 h-0.5 w-1/4 bg-teal-400"></div>

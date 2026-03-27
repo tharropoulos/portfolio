@@ -1,11 +1,11 @@
-import { IconProps } from "@radix-ui/react-icons/dist/types";
-import React, { ForwardRefExoticComponent, RefAttributes } from "react";
+import type { ComponentType, SVGProps } from "react";
+import React from "react";
 
 import { cn } from "@/lib/utils";
 
 interface Social {
   href: string;
-  icon: ForwardRefExoticComponent<IconProps & RefAttributes<SVGSVGElement>>;
+  icon: ComponentType<SVGProps<SVGSVGElement>>;
 }
 
 interface SocialLinkProps {

@@ -1,4 +1,3 @@
-import { useNavigate, useRouter } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 
 export interface NavigationLink {
@@ -8,29 +7,26 @@ export interface NavigationLink {
 }
 
 export interface UseNavigationProps {
+  currentPath: string;
   links: NavigationLink[];
   scrollOffset?: number;
 }
 
 export function useNavigation({
+  currentPath,
   links,
   scrollOffset = 150,
 }: UseNavigationProps) {
   const [activeLink, setActiveLink] = useState(() => links[0]?.id || "");
   const isScrolling = useRef(false);
-  const router = useRouter();
-  const navigate = useNavigate();
-
-  const isHomePage = router.state.location.pathname === "/";
+  const isHomePage = currentPath === "/";
 
   useEffect(() => {
-    console.log(
-      "Route changed, isHomePage:",
-      router.state.location.pathname === "/",
-    );
+    if (currentPath === "/") {
+      const id = window.location.hash.slice(1);
 
-    if (router.state.location.pathname === "/" && router.state.location.hash) {
-      const id = router.state.location.hash.slice(1); // Remove the # character
+      if (!id) return;
+
       const element = document.getElementById(id);
 
       if (element) {
@@ -44,14 +40,10 @@ export function useNavigation({
         }, 100);
       }
     }
-  }, [
-    router.state.location.pathname,
-    router.state.location.hash,
-    scrollOffset,
-  ]);
+  }, [currentPath, scrollOffset]);
 
   useEffect(() => {
-    if (router.state.location.pathname !== "/") return;
+    if (currentPath !== "/") return;
 
     const handleScroll = () => {
       if (isScrolling.current) return;
@@ -72,10 +64,10 @@ export function useNavigation({
 
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [links, scrollOffset, router.state.location.pathname]);
+  }, [currentPath, links, scrollOffset]);
 
   const scrollToSection = (id: string) => {
-    if (router.state.location.pathname === "/") {
+    if (currentPath === "/") {
       const element = document.getElementById(id);
       if (element) {
         isScrolling.current = true;
@@ -85,12 +77,13 @@ export function useNavigation({
           top: Math.max(0, offsetPosition),
           behavior: "smooth",
         });
+        window.history.replaceState({}, "", `/#${id}`);
         setTimeout(() => {
           isScrolling.current = false;
         }, 1000);
       }
     } else {
-      navigate({ to: `/#${id}` });
+      window.location.assign(`/#${id}`);
     }
   };
 

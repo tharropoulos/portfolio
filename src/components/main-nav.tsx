@@ -1,29 +1,34 @@
-import { Link, useLocation } from "@tanstack/react-router";
+import type { NavigationLink } from "@/hooks/useNavigation";
+import { useNavigation } from "@/hooks/useNavigation";
 import { LogoButton } from "@/components/logo-button";
 import { NavigationItem } from "@/components/navigation-item";
 import {
   NavigationMenu,
   NavigationMenuList,
 } from "@/components/ui/navigation-menu";
-import { NavigationLink, useNavigation } from "@/hooks/useNavigation";
 import { cn } from "@/lib/utils";
 
 export interface NavbarProps {
+  currentPath: string;
   links?: NavigationLink[];
   className?: string;
   scrollOffset?: number;
 }
 
-function Navbar({ links = [], className, scrollOffset }: NavbarProps) {
-  const location = useLocation();
-  const isHomePage = location.pathname === "/";
+function Navbar({
+  currentPath,
+  links = [],
+  className,
+  scrollOffset,
+}: NavbarProps) {
+  const isHomePage = currentPath === "/";
   const showLinks = isHomePage && links.length > 0;
 
   const { activeLink, scrollToSection } = useNavigation({
+    currentPath,
     links,
     scrollOffset,
   });
-
 
   return (
     <header
@@ -34,11 +39,13 @@ function Navbar({ links = [], className, scrollOffset }: NavbarProps) {
     >
       <div className="mx-auto flex max-w-screen-sm items-center justify-between px-0 max-sm:px-6">
         {isHomePage ? (
-          <LogoButton onClick={() => scrollToSection("about")}>fanis</LogoButton>
+          <LogoButton currentPath={currentPath} onClick={() => scrollToSection("about")}>
+            fanis
+          </LogoButton>
         ) : (
-          <Link to="/">
-            <LogoButton>fanis</LogoButton>
-          </Link>
+          <a href="/">
+            <LogoButton currentPath={currentPath}>fanis</LogoButton>
+          </a>
         )}
 
         {showLinks && (
@@ -61,3 +68,4 @@ function Navbar({ links = [], className, scrollOffset }: NavbarProps) {
 }
 
 export { Navbar };
+export default Navbar;

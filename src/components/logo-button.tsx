@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef } from "react";
-import { useLocation } from "@tanstack/react-router";
 import { motion, useAnimationControls } from "motion/react";
 import { Button } from "@/components/ui/button";
 
@@ -32,13 +31,17 @@ let persistedFontIndex = 0;
 let hasPlayedDropAnimation = false;
 
 interface LogoButtonProps {
+  currentPath: string;
   onClick?: () => void;
   children?: React.ReactNode;
 }
 
-export function LogoButton({ onClick, children = "fanis" }: LogoButtonProps) {
-  const location = useLocation();
-  const isHomePage = location.pathname === "/";
+export function LogoButton({
+  currentPath,
+  onClick,
+  children = "fanis",
+}: LogoButtonProps) {
+  const isHomePage = currentPath === "/";
   const [isHovering, setIsHovering] = useState(false);
   const [fontIndex, setFontIndex] = useState(persistedFontIndex);
   const controls = useAnimationControls();
