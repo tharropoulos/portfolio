@@ -17,9 +17,18 @@ export function NavigationItem({
   isActive,
   onClick,
 }: NavigationItemProps) {
+  const href = link.href ?? `/#${link.id}`;
+
   return (
     <NavigationMenuItem>
-      <button onClick={() => onClick(link.id)} className="relative block">
+      <NavigationMenuLink
+        href={href}
+        onClick={(event) => {
+          event.preventDefault();
+          onClick(link.id);
+        }}
+        className="relative block rounded-lg px-3 py-2 text-xs font-medium transition-colors after:absolute after:bottom-1.5 after:left-3 after:right-3 after:h-px after:origin-left after:scale-x-0 after:bg-foreground after:transition-transform after:duration-300 hover:after:scale-x-100 md:text-sm"
+      >
         {isActive && (
           <motion.span
             layoutId="bubble"
@@ -31,10 +40,10 @@ export function NavigationItem({
             }}
           />
         )}
-        <NavigationMenuLink className="relative z-[2] block rounded-lg px-3 py-2 md:text-sm font-medium transition-colors after:absolute after:bottom-1.5 after:left-3 after:right-3 after:h-px after:origin-left after:scale-x-0 after:bg-foreground after:transition-transform after:duration-300 hover:after:scale-x-100 text-xs">
+        <span className="relative z-[2] block">
           {link.label}
-        </NavigationMenuLink>
-      </button>
+        </span>
+      </NavigationMenuLink>
     </NavigationMenuItem>
   );
 }

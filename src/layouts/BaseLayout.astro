@@ -17,10 +17,10 @@ const {
 } = Astro.props;
 
 const links = [
-  { id: "about", href: "#about", label: "About" },
-  { id: "work", href: "#work", label: "Work" },
-  { id: "school", href: "#school", label: "School" },
-  { id: "interests", href: "#interests", label: "Interests" },
+  { id: "about", href: "/#about", label: "About" },
+  { id: "work", href: "/#work", label: "Work" },
+  { id: "school", href: "/#school", label: "School" },
+  { id: "interests", href: "/#interests", label: "Interests" },
 ];
 ---
 
@@ -39,9 +39,9 @@ const links = [
   <body>
     <div class="flex min-h-screen w-full flex-col items-center bg-background">
       <div class="fixed inset-x-0 top-0 z-50">
-        <Navbar client:load currentPath={currentPath} links={links} />
+        <Navbar client:idle currentPath={currentPath} links={links} />
         <ScrollProgressBar
-          client:only="react"
+          client:idle
           color="oklch(0.777 0.152 181.912)"
           strokeSize={2}
         />

@@ -23,7 +23,7 @@ function Navbar({
 }: NavbarProps) {
   const isHomePage = currentPath === "/";
   const showLinks = isHomePage && links.length > 0;
-  const retroHref = currentPath === "/experience" ? "/retro/experience" : "/retro";
+  const retroHref = currentPath === "/experience" ? "/retro/experience/" : "/retro/";
 
   const { activeLink, scrollToSection } = useNavigation({
     currentPath,
@@ -40,13 +40,17 @@ function Navbar({
     >
       <div className="mx-auto flex max-w-screen-sm items-center justify-between gap-3 px-0 max-sm:px-6">
         {isHomePage ? (
-          <LogoButton currentPath={currentPath} onClick={() => scrollToSection("about")}>
+          <LogoButton
+            currentPath={currentPath}
+            href="/#about"
+            onClick={() => scrollToSection("about")}
+          >
             fanis
           </LogoButton>
         ) : (
-          <a href="/">
-            <LogoButton currentPath={currentPath}>fanis</LogoButton>
-          </a>
+          <LogoButton currentPath={currentPath} href="/">
+            fanis
+          </LogoButton>
         )}
 
         <div className="flex items-center gap-2">

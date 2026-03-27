@@ -1,4 +1,5 @@
 ---
+import { Image } from "astro:assets";
 import {
   GitHubLogoIcon,
   LinkedInLogoIcon,
@@ -6,6 +7,7 @@ import {
 } from "@radix-ui/react-icons";
 
 import { AnimatedUnderline } from "@/components/animated-underline";
+import gradImage from "@/assets/grad.png";
 import WorkExperienceList from "@/components/experience-list";
 import Footer from "@/components/footer";
 import { Heading } from "@/components/heading";
@@ -48,10 +50,15 @@ const socials = profile.socials.map((social) => ({
           <Heading title="About" />
           <div class="flex w-full flex-col">
             <div class="overflow-hidden sm:w-full lg:h-[30rem]">
-              <img
-                src={profile.photo.src}
+              <Image
+                src={gradImage}
                 alt={profile.photo.alt}
-                class="h-full animate-pan-zoom bg-cover object-cover"
+                widths={[480, 672, 755]}
+                sizes="(max-width: 640px) calc(100vw - 2rem), 672px"
+                format="avif"
+                loading="eager"
+                fetchpriority="high"
+                class="h-full w-full animate-pan-zoom bg-cover object-cover"
               />
             </div>
             <p class="text-sm font-medium md:text-base">{profile.photo.caption}</p>
@@ -96,7 +103,7 @@ const socials = profile.socials.map((social) => ({
               class="font-extrabold text-sky-600 transition-all duration-200 hover:text-sky-900 dark:text-sky-300"
             >
               <AnimatedUnderline
-                client:load
+                client:visible
                 animationDelay={0.1}
                 className="stroke-sky-600 transition-all duration-200 hover:stroke-sky-900 dark:stroke-sky-300"
               >

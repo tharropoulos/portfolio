@@ -32,12 +32,14 @@ let hasPlayedDropAnimation = false;
 
 interface LogoButtonProps {
   currentPath: string;
+  href?: string;
   onClick?: () => void;
   children?: React.ReactNode;
 }
 
 export function LogoButton({
   currentPath,
+  href,
   onClick,
   children = "fanis",
 }: LogoButtonProps) {
@@ -138,6 +140,32 @@ export function LogoButton({
     if (onClick) onClick();
   };
 
+  const logo = (
+    <motion.h1
+      className={FONTS[fontIndex]}
+      initial={shouldPlayDrop ? { y: -100, opacity: 0 } : { opacity: 1 }}
+      animate={controls}
+      style={{ originX: 0, originY: 1 }}
+    >
+      {children}
+    </motion.h1>
+  );
+
+  if (href) {
+    return (
+      <Button
+        asChild
+        onClick={handleClick}
+        variant="ghost"
+        className="hover:bg-transparent pl-0"
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+      >
+        <a href={href}>{logo}</a>
+      </Button>
+    );
+  }
+
   return (
     <Button
       onClick={handleClick}
@@ -146,14 +174,7 @@ export function LogoButton({
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      <motion.h1
-        className={FONTS[fontIndex]}
-        initial={shouldPlayDrop ? { y: -100, opacity: 0 } : { opacity: 1 }}
-        animate={controls}
-        style={{ originX: 0, originY: 1 }}
-      >
-        {children}
-      </motion.h1>
+      {logo}
     </Button>
   );
 }
