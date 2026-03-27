@@ -1,0 +1,111 @@
+---
+import { interests } from "@/data/interests";
+import { experiences, school } from "@/data/experiences";
+import { profile } from "@/data/profile";
+import RetroLayout from "@/layouts/RetroLayout.astro";
+
+const groupedInterests = Object.groupBy(interests, ({ type }) => type);
+---
+
+<RetroLayout
+  title={`${profile.name} | Retro`}
+  description="Retro version of Fanis Tharropoulos' portfolio homepage."
+>
+  <p><a href="/">back to styled version</a></p>
+
+  <p>{profile.name}'s home on the internet</p>
+
+  <p>{profile.intro}</p>
+
+  <p>
+    {profile.socials.map((social, index) => (
+      <>
+        <a href={social.href}>{social.label}</a>{index < profile.socials.length - 1 ? " · " : ""}
+      </>
+    ))}
+    {" · "}
+    <a href={`mailto:${profile.email}`}>{profile.email}</a>
+  </p>
+
+  <h1>About</h1>
+
+  <p>
+    <img
+      src="/grad-retro-mid.jpg"
+      alt={profile.photo.alt}
+      class="block h-auto"
+      style="width: min(100%, 36rem);"
+    />
+    <br />
+    {profile.photo.caption}
+    <br />
+    {profile.photo.date}
+  </p>
+
+  <p>
+    {profile.about[0].beforeHighlight}<strong>{profile.about[0].highlight}</strong>{profile.about[0].afterHighlight}<a href={profile.about[0].emphasis.href}>{profile.about[0].emphasis.label}</a>{profile.about[0].afterEmphasis}
+  </p>
+
+  <p>{profile.about[1].beforeHighlight}<strong>{profile.about[1].highlight}</strong>{profile.about[1].afterHighlight}<strong>{profile.about[1].emphasis.label}</strong>{profile.about[1].afterEmphasis}</p>
+
+  <p>{profile.about[2].beforeHighlight}<strong>{profile.about[2].highlight}</strong>{profile.about[2].afterHighlight}</p>
+
+  <p>
+    I'm currently working on <a href={profile.currentProject.href}>{profile.currentProject.name}</a>{" "}
+    {profile.currentProject.description}{" "}
+    <a href={profile.currentProject.repositoryHref}>Drop us a star</a>
+  </p>
+
+  <h1>Work</h1>
+
+  {experiences.slice(0, 1).map((experience) => (
+    <>
+      <p>
+        <strong>
+          {experience.title} · {experience.company}
+        </strong>
+        <br />
+        {experience.timeframe}
+      </p>
+      {experience.description.map((description) => (
+        <p>{description}</p>
+      ))}
+    </>
+  ))}
+
+  <p><a href="/retro/experience">My full work experience</a></p>
+
+  <h1>School</h1>
+
+  {school.map((experience) => (
+    <>
+      <p>
+        <strong>
+          {experience.title} · {experience.company}
+        </strong>
+        <br />
+        {experience.timeframe}
+      </p>
+      {experience.description.map((description) => (
+        <p>{description}</p>
+      ))}
+    </>
+  ))}
+
+  <h1>Stuff I'm into</h1>
+
+  <p>A list of things I'm currently interested in, either tech or just for fun.</p>
+
+  {Object.entries(groupedInterests).map(([type, items]) => (
+    <>
+      <p><strong>{type}</strong></p>
+      <ul>
+        {items?.map((interest) => (
+          <li><a href={interest.href}>{interest.title}</a></li>
+        ))}
+      </ul>
+    </>
+  ))}
+
+  <p>{new Date().getFullYear()} | {profile.name}</p>
+</RetroLayout>

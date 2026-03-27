@@ -1,0 +1,36 @@
+---
+import { experiences } from "@/data/experiences";
+import { profile } from "@/data/profile";
+import RetroLayout from "@/layouts/RetroLayout.astro";
+---
+
+<RetroLayout
+  title={`Experience | ${profile.name} | Retro`}
+  description="Retro version of Fanis Tharropoulos' experience page."
+>
+  <p>
+    <a href="/retro">back</a> · <a href="/experience">styled version</a>
+  </p>
+
+  <h1>Experience</h1>
+
+  {experiences.map((experience) => (
+    <>
+      <p>
+        <strong>
+          {experience.title} · {experience.company}
+        </strong>
+        <br />
+        {experience.timeframe}
+      </p>
+      {experience.description.map((description) => (
+        <p>{description}</p>
+      ))}
+      {experience.skills && (
+        <p>
+          <strong>Skills:</strong> {experience.skills.join(", ")}
+        </p>
+      )}
+    </>
+  ))}
+</RetroLayout>

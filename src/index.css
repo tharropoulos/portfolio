@@ -105,6 +105,35 @@
       "rlig" 1,
       "calt" 1;
   }
+
+  .retro-launch {
+    text-decoration: none !important;
+  }
+
+  .retro-launch:hover {
+    color: #111;
+    text-decoration: none;
+    box-shadow:
+      inset 1px 1px 0 #7b7b7b,
+      inset -1px -1px 0 #ffffff,
+      1px 1px 0 #000000;
+  }
+
+  .retro-launch:hover .retro-screen {
+    background: #88c48f;
+  }
+
+  .retro-launch:focus-visible {
+    outline: 1px dotted #111;
+    outline-offset: 3px;
+  }
+
+  .retro-launch:active {
+    box-shadow:
+      inset 1px 1px 0 #6b6b6b,
+      inset -1px -1px 0 #ffffff,
+      0 0 0 #000000;
+  }
 }
 
 @layer utilities {
