@@ -1,12 +1,11 @@
 # Personal Portfolio
 
-My personal portfolio website built with React, Vite, and TanStack Router.
+My personal portfolio website built with Astro, React, and Tailwind CSS.
 
 ## Tech Stack
 
+- Astro with SSR
 - React 18 with TypeScript
-- Vite for build tooling
-- TanStack Router for navigation
 - Tailwind CSS for styling
 - shadcn/ui for UI components
 - Motion for animations
@@ -49,7 +48,7 @@ pnpm lint
 ## Project Structure
 
 - `/src/components` - Reusable UI components
-- `/src/routes` - Page components and routing logic
+- `/src/pages` - Astro route entrypoints
 - `/src/data` - Data files for content
 - `/src/hooks` - Custom React hooks
 - `/src/lib` - Utility functions
@@ -66,6 +65,6 @@ pnpm lint
 
 - [shadcn/ui](https://ui.shadcn.com/) for UI components
 - [Mark Horn](https://markhorn.dev/) for the inspo 
-- [TanStack Router](https://tanstack.com/router/latest) for routing
+- [Astro](https://astro.build/) for SSR and routing
 - [Tailwind CSS](https://tailwindcss.com/) for styling
 - [Radix UI](https://www.radix-ui.com/) for accessible primitives
