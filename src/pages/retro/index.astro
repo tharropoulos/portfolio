@@ -1,8 +1,10 @@
 ---
+import { Image } from "astro:assets";
 import { interests } from "@/data/interests";
 import { experiences, school } from "@/data/experiences";
 import { profile } from "@/data/profile";
 import RetroLayout from "@/layouts/RetroLayout.astro";
+import laravelNewsImage from "@/assets/laravel-news.jpg";
 
 const groupedInterests = Object.groupBy(interests, ({ type }) => type);
 ---
@@ -30,11 +32,14 @@ const groupedInterests = Object.groupBy(interests, ({ type }) => type);
   <h1>About</h1>
 
   <p>
-    <img
-      src="/grad-retro-mid.jpg"
+    <Image
+      src={laravelNewsImage}
       alt={profile.photo.alt}
+      width={760}
+      height={513}
       class="block h-auto"
       style="width: min(100%, 36rem);"
+      quality={55}
     />
     <br />
     {profile.photo.caption}

@@ -1,13 +1,14 @@
 ---
 import { Image } from "astro:assets";
 import {
+  ExternalLinkIcon,
   GitHubLogoIcon,
   LinkedInLogoIcon,
   TwitterLogoIcon,
 } from "@radix-ui/react-icons";
 
 import { AnimatedUnderline } from "@/components/animated-underline";
-import gradImage from "@/assets/grad.png";
+import laravelNewsImage from "../assets/laravel-news.jpg";
 import WorkExperienceList from "@/components/experience-list";
 import Footer from "@/components/footer";
 import { Heading } from "@/components/heading";
@@ -33,7 +34,7 @@ const socials = profile.socials.map((social) => ({
     <div class="animate-fadein-slide opacity-0 transition-all [--fadein-delay:0ms]">
       <section id="home" class="mt-24 lg:mt-32">
         <div class="mb-10">
-          <h1 class="mb-3 scroll-m-20 text-3xl font-extrabold tracking-tight md:text-4xl lg:text-5xl">
+          <h1 class="mb-3 scroll-m-20 text-3xl font-bold tracking-tight md:text-4xl lg:text-5xl">
             {profile.name}
           </h1>
           <h3 class="scroll-m-20 text-lg font-semibold tracking-tight md:text-2xl">
@@ -48,21 +49,31 @@ const socials = profile.socials.map((social) => ({
       <div class="flex flex-col gap-20">
         <section id="about" class="flex flex-col">
           <Heading title="About" />
-          <div class="flex w-full flex-col">
-            <div class="overflow-hidden sm:w-full lg:h-[30rem]">
+          <div class="flex w-full flex-col gap-2">
+            <div class="mb-3 overflow-hidden sm:w-full lg:h-[30rem]">
               <Image
-                src={gradImage}
+                src={laravelNewsImage}
                 alt={profile.photo.alt}
-                widths={[480, 672, 755]}
-                sizes="(max-width: 640px) calc(100vw - 2rem), 672px"
-                format="avif"
+                format="jpg"
+                quality={100}
                 loading="eager"
                 fetchpriority="high"
                 class="h-full w-full animate-pan-zoom bg-cover object-cover"
               />
             </div>
-            <p class="text-sm font-medium md:text-base">{profile.photo.caption}</p>
-            <p class="text-xs text-muted-foreground md:text-sm">{profile.photo.date}</p>
+            <p class="mb-0 text-sm font-medium md:text-base">
+              <a
+                href="https://www.youtube.com/live/YJmuKPk3d9M?si=iWKlDUubbKp8PQC2&t=19071"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="Open the LaraconEU talk timestamp on YouTube in a new tab"
+                class="inline-flex items-center gap-1 text-muted-foreground transition-colors duration-200 hover:text-foreground hover:underline"
+              >
+                <span>{profile.photo.caption}</span>
+                <ExternalLinkIcon className="h-4 w-4" />
+              </a>
+            </p>
+            <p class="mt-0 text-xs text-muted-foreground md:text-sm">{profile.photo.date}</p>
           </div>
           <p class="text-sm leading-6 dark:text-zinc-200 md:text-base md:leading-7 [&:not(:first-child)]:mt-4 md:[&:not(:first-child)]:mt-6">
             {profile.about[0].beforeHighlight}
