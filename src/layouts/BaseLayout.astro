@@ -1,5 +1,6 @@
 ---
 import Analytics from "@vercel/analytics/astro";
+import { ClientRouter } from "astro:transitions";
 import Navbar from "@/components/main-nav";
 import ScrollProgressBar from "@/components/scrollbar";
 import "@/index.css";
@@ -17,16 +18,18 @@ const {
 } = Astro.props;
 
 const links = [
-  { id: "about", href: "/#about", label: "About" },
-  { id: "work", href: "/#work", label: "Work" },
-  { id: "school", href: "/#school", label: "School" },
-  { id: "interests", href: "/#interests", label: "Interests" },
+  { id: "about", href: "/", label: "About" },
+  { id: "work", href: "/experience", label: "Work" },
+  { id: "writing", href: "/blog", label: "Writing" },
 ];
+const showScrollProgressBar =
+  currentPath === "/" || (currentPath.startsWith("/blog/") && currentPath !== "/blog");
 ---
 
 <!doctype html>
 <html lang="en">
   <head>
+    <ClientRouter />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
@@ -38,14 +41,18 @@ const links = [
   </head>
   <body>
     <div class="flex min-h-screen w-full flex-col items-center bg-background">
-      <div class="fixed inset-x-0 top-0 z-50">
+      <div transition:persist class="fixed inset-x-0 top-0 z-50">
         <Navbar client:idle currentPath={currentPath} links={links} />
-        <ScrollProgressBar
-          client:idle
-          color="oklch(0.777 0.152 181.912)"
-          strokeSize={2}
-        />
       </div>
+      {showScrollProgressBar && (
+        <div class="pointer-events-none fixed inset-x-0 top-0 z-50 h-16">
+          <ScrollProgressBar
+            client:idle
+            color="oklch(0.777 0.152 181.912)"
+            strokeSize={2}
+          />
+        </div>
+      )}
       <slot />
     </div>
   </body>
