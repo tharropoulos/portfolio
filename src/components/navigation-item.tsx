@@ -9,24 +9,15 @@ import type { NavigationLink } from "@/hooks/useNavigation";
 interface NavigationItemProps {
   link: NavigationLink;
   isActive: boolean;
-  onClick: (id: string) => void;
 }
 
-export function NavigationItem({
-  link,
-  isActive,
-  onClick,
-}: NavigationItemProps) {
+export function NavigationItem({ link, isActive }: NavigationItemProps) {
   const href = link.href ?? `/#${link.id}`;
 
   return (
     <NavigationMenuItem>
       <NavigationMenuLink
         href={href}
-        onClick={(event) => {
-          event.preventDefault();
-          onClick(link.id);
-        }}
         className="relative block rounded-lg px-3 py-2 text-xs font-medium transition-colors after:absolute after:bottom-1.5 after:left-3 after:right-3 after:h-px after:origin-left after:scale-x-0 after:bg-foreground after:transition-transform after:duration-300 hover:after:scale-x-100 md:text-sm"
       >
         {isActive && (

@@ -12,57 +12,42 @@ export interface NavbarProps {
   currentPath: string;
   links?: NavigationLink[];
   className?: string;
-  scrollOffset?: number;
 }
 
 function Navbar({
   currentPath,
   links = [],
   className,
-  scrollOffset,
 }: NavbarProps) {
-  const isHomePage = currentPath === "/";
-  const showLinks = isHomePage && links.length > 0;
+  const showLinks = links.length > 0;
   const retroHref = currentPath === "/experience" ? "/retro/experience/" : "/retro/";
 
-  const { activeLink, scrollToSection } = useNavigation({
+  const { activeLink } = useNavigation({
     currentPath,
     links,
-    scrollOffset,
   });
 
   return (
     <header
       className={cn(
-        "relative z-10 w-full bg-white/40 border-muted py-3 backdrop-blur-lg dark:bg-zinc-950/40",
+        "relative z-10 w-full border-muted bg-white/40 py-3 backdrop-blur-lg dark:bg-zinc-950/40",
         className,
       )}
     >
-      <div className="mx-auto flex max-w-screen-sm items-center justify-between gap-3 px-0 max-sm:px-6">
-        {isHomePage ? (
-          <LogoButton
-            currentPath={currentPath}
-            href="/#about"
-            onClick={() => scrollToSection("about")}
-          >
-            fanis
-          </LogoButton>
-        ) : (
-          <LogoButton currentPath={currentPath} href="/">
-            fanis
-          </LogoButton>
-        )}
+      <div className="mx-auto flex w-full max-w-screen-sm items-center justify-between gap-3 px-4 sm:px-0">
+        <LogoButton currentPath={currentPath} href="/">
+          fanis
+        </LogoButton>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 sm:ml-auto sm:mr-16">
           {showLinks && (
-            <NavigationMenu className="w-3/4 gap-1">
+            <NavigationMenu className="gap-1">
               <NavigationMenuList>
                 {links.map((link) => (
                   <NavigationItem
                     key={link.id}
                     link={link}
                     isActive={activeLink === link.id}
-                    onClick={scrollToSection}
                   />
                 ))}
               </NavigationMenuList>
