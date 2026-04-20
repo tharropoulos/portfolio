@@ -1,0 +1,43 @@
+---
+import { render } from "astro:content";
+import BlogPostCard from "@/components/blog-post-card.astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { getPublishedBlogPosts } from "@/lib/blog";
+
+const posts = await getPublishedBlogPosts();
+const postsWithReadingTime = await Promise.all(
+  posts.map(async (post) => {
+    const { remarkPluginFrontmatter } = await render(post);
+
+    return {
+      post,
+      minutesRead: remarkPluginFrontmatter.minutesRead as string | undefined,
+    };
+  }),
+);
+---
+
+<BaseLayout
+  currentPath="/blog"
+  title="Writing | Fanis Tharropoulos"
+  description="Notes on software engineering, open source, and developer tooling."
+>
+  <main class="container mx-auto flex min-h-screen w-full max-w-screen-sm flex-col gap-10 bg-background pb-16 pt-28">
+    <div class="animate-fadein-slide opacity-0 transition-all [--fadein-delay:10ms]">
+      <section>
+        <h1 class="mt-4 text-4xl font-bold tracking-tight md:text-5xl">
+          Thoughts worth keeping around
+        </h1>
+        <p class="mt-4 max-w-2xl text-base leading-7 text-muted-foreground md:text-lg">
+          Some longer-form writing for me to look back on in the future.
+        </p>
+      </section>
+
+      <section class="mt-10 flex flex-col gap-8">
+        {postsWithReadingTime.map(({ post, minutesRead }) => (
+          <BlogPostCard post={post} minutesRead={minutesRead} />
+        ))}
+      </section>
+    </div>
+  </main>
+</BaseLayout>

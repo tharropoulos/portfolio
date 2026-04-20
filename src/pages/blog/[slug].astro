@@ -1,0 +1,25 @@
+---
+import { render } from "astro:content";
+
+import BlogPostLayout from "@/layouts/BlogPostLayout.astro";
+import { getPublishedBlogPosts } from "@/lib/blog";
+
+export async function getStaticPaths() {
+  const posts = await getPublishedBlogPosts();
+
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content, remarkPluginFrontmatter } = await render(post);
+---
+
+<BlogPostLayout
+  post={post}
+  minutesRead={remarkPluginFrontmatter.minutesRead as string | undefined}
+>
+  <Content />
+</BlogPostLayout>
