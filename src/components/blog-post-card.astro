@@ -13,7 +13,7 @@ const { post, minutesRead } = Astro.props;
 ---
 
 <article class="grid gap-4 sm:grid-cols-[7rem_1.25rem_minmax(0,1fr)] sm:gap-5">
-  <div class="flex items-start gap-3 pt-1 text-sm font-medium text-muted-foreground sm:block sm:gap-0 sm:pt-6">
+  <div class="flex items-center gap-3 pt-1 text-sm font-medium text-muted-foreground sm:block sm:gap-0 sm:pt-6">
     <span class="mt-1 h-10 w-1 shrink-0 rounded-full bg-teal-500 sm:hidden"></span>
     <div>
       <time datetime={post.data.publishedAt.toISOString()}>
