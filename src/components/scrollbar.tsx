@@ -1,7 +1,6 @@
 "use client";
 
-import { useMotionValueEvent, useScroll, useTransform } from "motion/react";
-import React from "react";
+import { motion, useScroll, useSpring } from "motion/react";
 
 import { cn } from "@/lib/utils";
 
@@ -17,13 +16,10 @@ export default function ScrollProgressBar({
   className,
 }: ScrollProgressBarType) {
   const { scrollYProgress } = useScroll();
-
-  const scrollPercentage = useTransform(scrollYProgress, [0, 1], [0, 100]);
-
-  const [percentage, setPercentage] = React.useState(0);
-
-  useMotionValueEvent(scrollPercentage, "change", (latest) => {
-    setPercentage(Math.round(latest));
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 140,
+    damping: 18,
+    mass: 0.55,
   });
 
   return (
@@ -31,13 +27,13 @@ export default function ScrollProgressBar({
       className={cn("pointer-events-none absolute inset-x-0 bottom-0 z-20", className)}
       style={{ height: `${strokeSize + 2}px` }}
     >
-      <span
-        className="block h-full w-full rounded-full bg-primary"
+      <motion.span
+        className="block h-full w-full origin-left rounded-full bg-primary"
         style={{
           backgroundColor: color,
-          width: `${percentage}%`,
+          scaleX: smoothProgress,
         }}
-      ></span>
+      />
     </div>
   );
 }
