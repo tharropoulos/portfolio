@@ -30,7 +30,7 @@ function Navbar({
   return (
     <header
       className={cn(
-        "relative z-10 w-full border-muted bg-white/40 py-3 backdrop-blur-lg dark:bg-zinc-950/40",
+        "relative z-10 w-full border-muted bg-white/60 py-3 backdrop-blur-xl dark:bg-zinc-950/40",
         className,
       )}
     >
