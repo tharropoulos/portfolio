@@ -6,6 +6,9 @@ import { remarkReadingTime } from "./remark-reading-time.mjs";
 
 export default defineConfig({
   output: "static",
+  build: {
+    inlineStylesheets: "always",
+  },
   integrations: [mdx(), react()],
   markdown: {
     remarkPlugins: [remarkReadingTime],

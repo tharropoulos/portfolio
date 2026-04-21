@@ -42,12 +42,12 @@ const showScrollProgressBar =
   <body>
     <div class="flex min-h-screen w-full flex-col items-center bg-background">
       <div transition:persist class="fixed inset-x-0 top-0 z-50">
-        <Navbar client:idle currentPath={currentPath} links={links} />
+        <Navbar client:load currentPath={currentPath} links={links} />
       </div>
       {showScrollProgressBar && (
         <div class="pointer-events-none fixed inset-x-0 top-0 z-50 h-16">
           <ScrollProgressBar
-            client:idle
+            client:load
             color="oklch(0.777 0.152 181.912)"
             strokeSize={2}
           />
