@@ -55,11 +55,31 @@ export const profile = {
         " & more, alongside helping the community through documentation, demos, and direct support.",
     },
   ],
-  currentProject: {
-    name: "Kyma",
-    href: "https://kyma.ink",
-    repositoryHref: "https://github.com/museslabs/kyma",
-    description:
-      "(Κῦμα), a TUI presentation tool with a focus on eye candy and ease of use.",
+  coauthoredOrg: {
+    label: "museslabs",
+    href: "https://github.com/museslabs",
   },
+  coauthoredProjects: [
+    {
+      name: "Kyma",
+      href: "https://github.com/museslabs/kyma",
+      description:
+        "(κῦμα) is a TUI presentation tool focused on eye candy and ease of use.",
+      animation: "wave",
+    },
+    {
+      name: "Stochos",
+      href: "https://github.com/museslabs/stochos",
+      description:
+        "(στόχος) is a keyboard-driven mouse control overlay for Wayland, X11, and macOS.",
+      animation: "target",
+    },
+    {
+      name: "Phonto",
+      href: "https://github.com/museslabs/phonto",
+      description:
+        "(φόντο) is a GPU-accelerated video wallpaper program for Wayland compositors and macOS.",
+      animation: "scanline",
+    },
+  ],
 } as const;
