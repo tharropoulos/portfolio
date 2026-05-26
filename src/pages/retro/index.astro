@@ -55,11 +55,19 @@ const groupedInterests = Object.groupBy(interests, ({ type }) => type);
 
   <p>{profile.about[2].beforeHighlight}<strong>{profile.about[2].highlight}</strong>{profile.about[2].afterHighlight}</p>
 
+  <h1>Open Source</h1>
+
   <p>
-    I'm currently working on <a href={profile.currentProject.href}>{profile.currentProject.name}</a>{" "}
-    {profile.currentProject.description}{" "}
-    <a href={profile.currentProject.repositoryHref}>Drop us a star</a>
+    I've coauthored a couple of apps under the <a href={profile.coauthoredOrg.href}>{profile.coauthoredOrg.label}</a> github org.
   </p>
+
+  <ul>
+    {profile.coauthoredProjects.map((project) => (
+      <li>
+        <a href={project.href}>{project.name}</a> {project.description}
+      </li>
+    ))}
+  </ul>
 
   <h1>Work</h1>
 
