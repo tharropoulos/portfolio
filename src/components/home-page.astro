@@ -7,6 +7,7 @@ import {
   TwitterLogoIcon,
 } from "@radix-ui/react-icons";
 
+import { AnimatedScanline } from "@/components/animated-scanline";
 import { AnimatedUnderline } from "@/components/animated-underline";
 import laravelNewsImage from "../assets/laravel-news.jpg";
 import WorkExperienceList from "@/components/experience-list";
@@ -107,28 +108,48 @@ const socials = profile.socials.map((social) => ({
             </span>
             {profile.about[2].afterHighlight}
           </p>
-          <p class="text-sm leading-6 dark:text-zinc-200 md:text-base md:leading-7 [&:not(:first-child)]:mt-4 md:[&:not(:first-child)]:mt-6">
-            I'm currently working on{" "}
+        </section>
+        <section id="open-source" class="flex flex-col">
+          <Heading title="Open Source" />
+          <p class="text-sm leading-6 dark:text-zinc-200 md:text-base md:leading-7">
+            I've coauthored a couple of apps under the{" "}
             <a
-              href={profile.currentProject.href}
-              class="font-extrabold text-sky-600 transition-all duration-200 hover:text-sky-900 dark:text-sky-300"
+              href={profile.coauthoredOrg.href}
+              class="font-extrabold text-teal-600 hover:underline dark:text-teal-300"
             >
-              <AnimatedUnderline
-                client:visible
-                animationDelay={0.1}
-                className="stroke-sky-600 transition-all duration-200 hover:stroke-sky-900 dark:stroke-sky-300"
-              >
-                {profile.currentProject.name}
-              </AnimatedUnderline>
+              {profile.coauthoredOrg.label}
             </a>{" "}
-            {profile.currentProject.description}{" "}
-            <a
-              href={profile.currentProject.repositoryHref}
-              class="font-extrabold text-sky-600 hover:underline dark:text-sky-300"
-            >
-              Drop us a star
-            </a>{" "}
+            github org.
           </p>
+          <ul class="ml-5 mt-3 list-disc space-y-2 text-sm leading-6 dark:text-zinc-200 md:text-base md:leading-7">
+            {profile.coauthoredProjects.map((project, i) => {
+              const delay = 0.1 + i * 1.8;
+              return (
+                <li>
+                  <a
+                    href={project.href}
+                    class="font-extrabold text-teal-600 transition-all duration-200 hover:text-teal-900 dark:text-teal-300 dark:hover:text-teal-200"
+                  >
+                    {project.animation === "scanline" ? (
+                      <AnimatedScanline client:visible animationDelay={delay}>
+                        {project.name}
+                      </AnimatedScanline>
+                    ) : (
+                      <AnimatedUnderline
+                        client:visible
+                        animationDelay={delay}
+                        variant={project.animation}
+                        className="stroke-teal-600 transition-all duration-200 hover:stroke-teal-900 dark:stroke-teal-300"
+                      >
+                        {project.name}
+                      </AnimatedUnderline>
+                    )}
+                  </a>{" "}
+                  {project.description}
+                </li>
+              );
+            })}
+          </ul>
         </section>
         <section id="work" class="flex flex-col">
           <Heading
