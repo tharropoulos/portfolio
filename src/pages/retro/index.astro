@@ -105,20 +105,5 @@ const groupedInterests = Object.groupBy(interests, ({ type }) => type);
     </>
   ))}
 
-  <h1>Stuff I'm into</h1>
-
-  <p>A list of things I'm currently interested in, either tech or just for fun.</p>
-
-  {Object.entries(groupedInterests).map(([type, items]) => (
-    <>
-      <p><strong>{type}</strong></p>
-      <ul>
-        {items?.map((interest) => (
-          <li><a href={interest.href}>{interest.title}</a></li>
-        ))}
-      </ul>
-    </>
-  ))}
-
   <p>{new Date().getFullYear()} | {profile.name}</p>
 </RetroLayout>
