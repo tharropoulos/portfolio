@@ -48,12 +48,12 @@ const groupedInterests = Object.groupBy(interests, ({ type }) => type);
   </p>
 
   <p>
-    {profile.about[0].beforeHighlight}<strong>{profile.about[0].highlight}</strong>{profile.about[0].afterHighlight}<a href={profile.about[0].emphasis.href}>{profile.about[0].emphasis.label}</a>{profile.about[0].afterEmphasis}
+    {profile.about[0].before}<a href={profile.about[0].link.href}>{profile.about[0].link.label}</a>{profile.about[0].after}
   </p>
 
-  <p>{profile.about[1].beforeHighlight}<strong>{profile.about[1].highlight}</strong>{profile.about[1].afterHighlight}<strong>{profile.about[1].emphasis.label}</strong>{profile.about[1].afterEmphasis}</p>
+  <p>{profile.about[1].before}</p>
 
-  <p>{profile.about[2].beforeHighlight}<strong>{profile.about[2].highlight}</strong>{profile.about[2].afterHighlight}</p>
+  <p>{profile.about[2].before}</p>
 
   <h1>Open Source</h1>
 

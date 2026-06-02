@@ -77,36 +77,16 @@ const socials = profile.socials.map((social) => ({
             <p class="mt-0 text-xs text-muted-foreground md:text-sm">{profile.photo.date}</p>
           </div>
           <p class="text-sm leading-6 dark:text-zinc-200 md:text-base md:leading-7 [&:not(:first-child)]:mt-4 md:[&:not(:first-child)]:mt-6">
-            {profile.about[0].beforeHighlight}
-            <span class="text-sm font-semibold underline decoration-teal-400 decoration-dashed md:text-base">
-              {profile.about[0].highlight}
-            </span>
-            {profile.about[0].afterHighlight}
-            <a
-              href={profile.about[0].emphasis.href}
-              class="font-extrabold text-teal-600 hover:underline dark:text-teal-300"
-            >
-              {profile.about[0].emphasis.label}
-            </a>
-            {profile.about[0].afterEmphasis}
+            {profile.about[0].before}<a
+              href={profile.about[0].link.href}
+              class="font-extrabold text-teal-600 underline hover:text-teal-900 dark:text-teal-300 dark:hover:text-teal-200"
+            >{profile.about[0].link.label}</a>{profile.about[0].after}
           </p>
           <p class="text-sm leading-6 dark:text-zinc-200 md:text-base md:leading-7 [&:not(:first-child)]:mt-4 md:[&:not(:first-child)]:mt-6">
-            {profile.about[1].beforeHighlight}
-            <span class="text-sm font-semibold underline decoration-teal-400 decoration-dashed md:text-base">
-              {profile.about[1].highlight}
-            </span>
-            {profile.about[1].afterHighlight}
-            <span class="text-sm font-semibold underline decoration-teal-400 decoration-dashed md:text-base">
-              {profile.about[1].emphasis.label}
-            </span>{" "}
-            {profile.about[1].afterEmphasis}
+            {profile.about[1].before}
           </p>
           <p class="text-sm leading-6 dark:text-zinc-200 md:text-base md:leading-7 [&:not(:first-child)]:mt-4 md:[&:not(:first-child)]:mt-6">
-            {profile.about[2].beforeHighlight}
-            <span class="text-sm font-semibold underline decoration-teal-400 decoration-dashed md:text-base">
-              {profile.about[2].highlight}
-            </span>
-            {profile.about[2].afterHighlight}
+            {profile.about[2].before}
           </p>
         </section>
         <section id="open-source" class="flex flex-col">

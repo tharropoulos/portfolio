@@ -28,31 +28,18 @@ export const profile = {
   email: "ftharropulos@gmail.com",
   about: [
     {
-      beforeHighlight: "I'm a ",
-      highlight: "Software Engineer",
-      afterHighlight: " at ",
-      emphasis: {
-        label: "Typesense",
-        href: "https://typesense.org/",
-      },
-      afterEmphasis:
+      before: "I'm a Software Engineer at ",
+      link: { label: "Typesense", href: "https://typesense.org/" },
+      after:
         ", working on an open-source search engine and its language clients, framework integrations, and core features.",
     },
     {
-      beforeHighlight: "I studied ",
-      highlight:
-        "Electrical and Computer Engineering at the Aristotle University of Thessaloniki",
-      afterHighlight: ", with my master's thesis exploring ",
-      emphasis: {
-        label: "how to evaluate and improve AI code assistants",
-      },
-      afterEmphasis: " like GitHub Copilot.",
+      before:
+        "I studied Electrical and Computer Engineering at the Aristotle University of Thessaloniki, where my master's thesis explored how to evaluate and improve AI code assistants like GitHub Copilot.",
     },
     {
-      beforeHighlight: "I enjoy all things FOSS, and especially ",
-      highlight: "building developer tools in Python, TypeScript",
-      afterHighlight:
-        " & more, alongside helping the community through documentation, demos, and direct support.",
+      before:
+        "I enjoy all things FOSS, especially building developer tools in Python, TypeScript & more, alongside helping the community through documentation, demos, and direct support.",
     },
   ],
   coauthoredOrg: {
