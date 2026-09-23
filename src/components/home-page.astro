@@ -14,6 +14,7 @@ import WorkExperienceList from "@/components/experience-list";
 import Footer from "@/components/footer";
 import { Heading } from "@/components/heading";
 import { InterestsList } from "@/components/interests-list";
+import LatestPullRequests from "@/components/latest-prs";
 import SocialLinks from "@/components/socials";
 import { profile } from "@/data/profile";
 import { experiences, school } from "@/data/experiences";
@@ -88,6 +89,16 @@ const socials = profile.socials.map((social) => ({
           <p class="text-sm leading-6 dark:text-zinc-200 md:text-base md:leading-7 [&:not(:first-child)]:mt-4 md:[&:not(:first-child)]:mt-6">
             {profile.about[2].before}
           </p>
+        </section>
+        <section id="pull-requests" class="flex flex-col">
+          <Heading
+            title="Latest PRs"
+            link={{
+              href: `https://github.com/pulls?q=author%3A${profile.githubUsername}+is%3Apr`,
+              label: "All my pull requests",
+            }}
+          />
+          <LatestPullRequests client:visible username={profile.githubUsername} />
         </section>
         <section id="open-source" class="flex flex-col">
           <Heading title="Open Source" />
