@@ -8,6 +8,7 @@ export const profile = {
     caption: "A quick chat with Eric Barnes at LaraconEU",
     date: "Mar 3, 2026",
   },
+  githubUsername: "tharropoulos",
   socials: [
     {
       id: "github",
