@@ -101,7 +101,7 @@ const socials = profile.socials.map((social) => ({
           <LatestPullRequests client:visible username={profile.githubUsername} />
         </section>
         <section id="open-source" class="flex flex-col">
-          <Heading title="Open Source" />
+          <Heading title="Open Source" link={profile.coauthoredOrg.site} />
           <p class="text-sm leading-6 dark:text-zinc-200 md:text-base md:leading-7">
             I've coauthored a couple of apps under the{" "}
             <a

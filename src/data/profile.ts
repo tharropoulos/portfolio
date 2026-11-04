@@ -46,6 +46,10 @@ export const profile = {
   coauthoredOrg: {
     label: "museslabs",
     href: "https://github.com/museslabs",
+    site: {
+      label: "museslabs.org",
+      href: "https://museslabs.org",
+    },
   },
   coauthoredProjects: [
     {
