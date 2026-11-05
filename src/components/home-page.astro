@@ -101,12 +101,13 @@ const posts = await Promise.all(
           {lede}<b class="font-[640]">{about1.link.label}</b>{about1.after}
         </p>
         {/* The interview, as the front page's photo. The title is the link and stretches over the
-            whole figure; the play block says it's a video before anyone hovers. */}
+            whole figure; the play block says it's a video before anyone hovers. The bone
+            shows while the photo's on its way (see BaseLayout). */}
         <figure
           class="group relative isolate my-7 max-w-[880px] overflow-hidden border-2 border-ink has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-[3px] has-[:focus-visible]:outline-ink"
         >
           <span
-            class="relative block overflow-hidden after:absolute after:inset-0 after:bg-ink/30 after:opacity-0 after:transition-opacity after:duration-150 after:ease-out group-hover:after:opacity-100 group-active:after:opacity-100"
+            class="relative block overflow-hidden bg-ink/[0.08] after:absolute after:inset-0 after:bg-ink/30 after:opacity-0 after:transition-opacity after:duration-150 after:ease-out group-hover:after:opacity-100 group-active:after:opacity-100"
           >
             {/* The source frame has a black bar down its left edge; crop it off. */}
             <Image

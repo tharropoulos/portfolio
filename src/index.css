@@ -375,9 +375,13 @@
   .raw-prose > :is(hr, figure, pre) + * {
     margin-top: 2em;
   }
-  /* Framed like the photo on the front page, the caption in a cell under it. */
+  /* Framed like the photo on the front page, the caption in a cell under it. The bone
+     shows while the media's on its way, and the frame clips it as it settles in (see
+     the media rules below the layers). */
   .raw-prose > figure {
+    overflow: clip;
     border: 2px solid oklch(var(--ink));
+    background-color: oklch(var(--ink) / 0.08);
   }
   .raw-prose figure :is(img, video) {
     display: block;
@@ -386,6 +390,7 @@
   }
   .raw-prose figcaption {
     border-top: 2px solid oklch(var(--ink));
+    background-color: oklch(var(--paper));
     padding: 12px 16px;
     font-size: theme("fontSize.small");
     line-height: 1.45;
@@ -462,6 +467,24 @@
 @media (max-width: 640px) {
   .container {
     @apply px-4;
+  }
+}
+
+/* A figure's media on its way (see BaseLayout): hidden over its bone until it arrives,
+   then it fades in and settles from a little larger onto the caption under it, so its
+   bottom edge holds still while the frame clips the rest. Outside the layers, like the
+   push below. */
+figure :is(img, video)[data-media="loading"] {
+  opacity: 0;
+}
+figure :is(img, video)[data-media="arriving"] {
+  transform-origin: bottom;
+  animation: media-arrive 400ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+@keyframes media-arrive {
+  from {
+    opacity: 0;
+    transform: scale(1.04);
   }
 }
 

@@ -79,6 +79,60 @@ const rawFonts = [archivoFaces, interFaces, dmMono400Faces, dmMono500Faces].join
       addEventListener("pagehide", () => (history.scrollRestoration = "auto"));
       addEventListener("pageshow", () => (history.scrollRestoration = "manual"));
     </script>
+    {/* A figure's media that's still on its way waits hidden over its bone, then settles in
+        when it arrives (see index.css). Media already in hand shows at once, and so does
+        media that takes under a tenth of a second, like a reload's from the cache, since
+        nobody saw it waiting. The parser's figures are caught as they're inserted, before
+        the first paint, and the router's right after each swap, before the push captures
+        them. Without scripts, nothing is hidden. */}
+    <script is:inline>
+      (() => {
+        const media = "figure img, figure video";
+        const still = matchMedia("(prefers-reduced-motion: reduce)");
+
+        function hold(el) {
+          if (el.dataset.media) return;
+          // A video shows its poster until it plays, so it waits on that.
+          let probe = el;
+          if (el instanceof HTMLVideoElement) {
+            if (!el.poster || el.readyState >= 2) return;
+            probe = new Image();
+            probe.src = el.poster;
+          }
+          if (probe.complete) return;
+
+          el.dataset.media = "loading";
+          const held = performance.now();
+          const arrive = () => {
+            if (el.dataset.media !== "loading") return;
+            if (performance.now() - held < 100 || still.matches) {
+              delete el.dataset.media;
+              return;
+            }
+            el.dataset.media = "arriving";
+            el.addEventListener("animationend", () => delete el.dataset.media, { once: true });
+          };
+          probe.addEventListener("load", arrive, { once: true });
+          probe.addEventListener("error", arrive, { once: true });
+          if (probe !== el) el.addEventListener("loadeddata", arrive, { once: true });
+        }
+
+        const parsing = new MutationObserver((records) => {
+          for (const { addedNodes } of records) {
+            for (const node of addedNodes) {
+              if (!(node instanceof Element)) continue;
+              if (node.matches(media)) hold(node);
+              node.querySelectorAll(media).forEach(hold);
+            }
+          }
+        });
+        parsing.observe(document.documentElement, { childList: true, subtree: true });
+        document.addEventListener("DOMContentLoaded", () => parsing.disconnect(), { once: true });
+        document.addEventListener("astro:after-swap", () => {
+          document.querySelectorAll(media).forEach(hold);
+        });
+      })();
+    </script>
   </head>
   <body class="bg-paper">
     <slot />
