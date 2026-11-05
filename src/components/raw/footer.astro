@@ -1,0 +1,47 @@
+---
+// The pages again, big, for whoever reads to the end with the header out of reach. The
+// one you're on, or a post's writing, stays bright and the rest are dimmed.
+import { nav, within } from "@/components/raw/nav";
+
+interface Props {
+  currentPath: string;
+}
+
+const { currentPath } = Astro.props;
+const small =
+  "relative pointer-coarse:before:absolute pointer-coarse:before:-inset-y-3.5 pointer-coarse:before:inset-x-0";
+---
+
+<footer class="bg-teal-deep px-4 pb-12 pt-10 text-paper">
+  <nav aria-label="Footer">
+    <ul
+      class="flex flex-wrap gap-x-[0.3em] gap-y-[0.1em] font-cast text-[clamp(36px,7vw,104px)] font-extrabold lowercase leading-none tracking-[-0.01em] [font-stretch:62%]"
+    >
+      {
+        nav.map(({ href, label }) => {
+          const current = href === currentPath;
+          const under = within(href, currentPath);
+          return (
+            <li>
+              <a
+                href={href}
+                aria-current={current ? "page" : under ? "true" : undefined}
+                class:list={[
+                  "transition-colors duration-150 ease-out",
+                  current || under
+                    ? "hover:text-paper/70 active:text-paper/70"
+                    : "text-paper/50 hover:text-paper active:text-paper",
+                ]}
+              >
+                {label}
+              </a>
+            </li>
+          );
+        })
+      }
+    </ul>
+  </nav>
+  <div class="mt-8 flex gap-x-6 font-dm-mono text-label lowercase text-paper/70">
+    <a href="/retro/" class={small}>Retro version</a>
+  </div>
+</footer>

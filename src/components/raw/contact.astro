@@ -1,0 +1,51 @@
+---
+// Where I'm based, in a strip under the title, and how to reach me, in a box beside it
+// (see masthead.astro). Both hold still in the push between pages (see push.ts), so
+// their lines are whole pixels tall.
+import { profile } from "@/data/profile";
+---
+
+<dl
+  class="push-based border-y-2 border-ink px-4 pb-4 pt-3.5 min-[900px]:col-start-1 min-[900px]:row-start-2 min-[900px]:flex min-[900px]:items-baseline min-[900px]:gap-4 min-[900px]:pb-[13px] min-[900px]:pt-3"
+>
+  <dt class="font-dm-mono text-label leading-5 lowercase text-ink-3">Based</dt>
+  <dd class="mt-1 text-body-lg font-[560] leading-[round(1.5em,1px)] min-[900px]:mt-0">
+    Athens, Greece
+  </dd>
+</dl>
+{/* Its contents stand on the box's bottom edge, level with the strip's baseline, and
+    clear the rule drawn over its left edge (see masthead.astro). */}
+<dl
+  class="push-contact border-b-2 border-ink px-4 pb-4 pt-3.5 min-[900px]:col-start-2 min-[900px]:row-span-2 min-[900px]:row-start-1 min-[900px]:flex min-[900px]:flex-col min-[900px]:justify-end min-[900px]:pb-[13px] min-[900px]:pl-[18px] min-[900px]:pt-6"
+>
+  <dt class="font-dm-mono text-label leading-5 lowercase text-ink-3">Contact</dt>
+  {/* The address and the profiles share a line until the cell is too narrow for both.
+      On touch, the address's hit area grows mostly up and the profiles' mostly down, so
+      when they wrap the two meet in the gap instead of overlapping. The profiles' grow
+      sideways to at least 44px, which only X needs. */}
+  <dd
+    class="mt-1 flex flex-wrap items-baseline gap-x-5 gap-y-3 text-body-lg font-[560] leading-[round(1.5em,1px)]"
+  >
+    <a
+      href={`mailto:${profile.email}`}
+      class="relative underline decoration-teal-ink/40 decoration-[1.5px] underline-offset-[0.2em] transition-[text-decoration-color] duration-150 ease-out [overflow-wrap:anywhere] hover:decoration-current active:decoration-current pointer-coarse:before:absolute pointer-coarse:before:inset-x-0 pointer-coarse:before:-bottom-1.5 pointer-coarse:before:-top-3"
+    >
+      {profile.email}
+    </a>
+    <span class="flex gap-4 text-small font-medium leading-[round(1.5em,1px)]">
+      {
+        profile.socials.map((social) => (
+          <a
+            href={social.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="relative inline-flex gap-[3px] transition-colors duration-150 ease-out hover:text-ink-3 active:text-ink-3 pointer-coarse:before:absolute pointer-coarse:before:-bottom-[15px] pointer-coarse:before:-top-1.5 pointer-coarse:before:inset-x-[min(-6px,calc(50%_-_22px))]"
+          >
+            {social.label}
+            <span class="inline-block" aria-hidden="true">↗</span>
+          </a>
+        ))
+      }
+    </span>
+  </dd>
+</dl>

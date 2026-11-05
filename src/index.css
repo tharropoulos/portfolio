@@ -188,6 +188,87 @@
   }
 }
 
+/* Raw: what utilities can't say cleanly. Everything else is in the markup. */
+@layer components {
+  .raw {
+    font-synthesis: none;
+    text-size-adjust: 100%;
+  }
+  .raw :focus-visible {
+    outline: 2px solid oklch(var(--ink));
+    outline-offset: 3px;
+  }
+  /* Ink is 1.5:1 on the teal footer, so the ring turns paper there. */
+  .raw footer :focus-visible {
+    outline-color: oklch(var(--paper));
+  }
+  .raw :is(a, button) {
+    touch-action: manipulation;
+  }
+  /* A long press on a control presses it, rather than selecting its label. */
+  .raw button {
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  /* The name on the front page and every page's title share one size, so their cells are
+     the same height and the push between them only slides the titles. Phones get a size
+     that grows with the screen, as big as it gets with the note still beside the name. It
+     meets the 25.5vw of wider screens at 557px. Where the contact box squeezes the cell,
+     and on the narrowest phones, it stops at what fits "writing", the widest title. The
+     cell is the container, so 100cqi is its width inside the padding. */
+  .hero-cast {
+    font-size: min(clamp(110px, max(25.5vw, min(33vw, 142px)), 420px), 100cqi / 2.55);
+  }
+
+  /* A title and its organisation. The dot leads the organisation in a gutter the title
+     clips, so it shows while both share a line and drops out when the organisation wraps. */
+  .role-at {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    margin-inline-start: -1em;
+  }
+  .role-at > * {
+    display: flex;
+    align-items: baseline;
+  }
+  .role-at > *::before {
+    content: "";
+    flex: none;
+    width: 1em;
+    text-align: center;
+  }
+  .role-at > * + *::before {
+    content: "·";
+    content: "·" / "";
+  }
+
+  /* A page's sections, numbered on wide screens above their titles, the way the rail
+     numbers them (see rail.astro). */
+  .raw-sections {
+    counter-reset: section;
+  }
+  .raw-section {
+    counter-increment: section;
+  }
+  @media (min-width: 900px) {
+    .raw-section-title::before {
+      content: counter(section, decimal-leading-zero);
+      display: block;
+      margin-bottom: 0.9rem;
+      font-family: theme("fontFamily.dm-mono");
+      font-size: theme("fontSize.label");
+      font-stretch: 100%;
+      font-weight: 400;
+      line-height: 20px;
+      letter-spacing: normal;
+      color: oklch(var(--teal-ink));
+      font-variant-numeric: tabular-nums;
+    }
+  }
+}
+
 @layer utilities {
   .step {
     counter-increment: step;

@@ -1,0 +1,54 @@
+---
+import { nav, within } from "@/components/raw/nav";
+
+interface Props {
+  currentPath: string;
+}
+
+const { currentPath } = Astro.props;
+
+const retroHref = currentPath === "/work" ? "/retro/experience/" : "/retro/";
+---
+
+<header class="flex items-center justify-between gap-4 border-b-2 border-ink px-4 py-3">
+  {/* The current page is a solid block; the others take a plain hover fill. A post keeps
+      writing solid, and lightens it on hover since it leads back to the index. */}
+  <nav aria-label="Primary" class="flex gap-0.5">
+    {
+      nav.map(({ href, label }) => {
+        const current = href === currentPath;
+        const under = within(href, currentPath);
+        return (
+          <a
+            href={href}
+            aria-current={current ? "page" : under ? "true" : undefined}
+            class:list={[
+              "relative px-3 py-2 font-dm-mono text-meta leading-5 transition-colors duration-150 ease-out pointer-coarse:before:absolute pointer-coarse:before:-inset-y-1 pointer-coarse:before:inset-x-0",
+              current && "bg-ink text-paper",
+              under && "bg-ink text-paper hover:bg-ink-2 active:bg-ink-2",
+              !current && !under && "hover:bg-wash active:bg-wash",
+            ]}
+          >
+            {label}
+          </a>
+        );
+      })
+    }
+  </nav>
+  <a
+    href={retroHref}
+    class="group relative inline-flex h-9 w-11 shrink-0 flex-col items-center rounded-[5px] border border-[#6b6b6b] bg-[#d8d1c2] px-1 pt-1 text-[#111] shadow-[inset_1px_1px_0_#fff,inset_-1px_-1px_0_#7b7b7b,1px_1px_0_#000] pointer-coarse:before:absolute pointer-coarse:before:-inset-y-1.5 pointer-coarse:before:inset-x-0"
+    aria-label="Open retro version"
+    title="Open retro version"
+  >
+    <span
+      class="flex h-5 w-full items-center justify-center rounded-[2px] border border-[#2b2b2b] bg-[#95d29c] font-mono text-[7px] font-bold uppercase tracking-[0.08em] text-[#0f2a12] group-hover:bg-[#88c48f] group-active:bg-[#88c48f]"
+    >
+      retro
+    </span>
+    <span class="mt-1 h-0.5 w-4 rounded-full bg-[#8e877b]"></span>
+    <span
+      class="mt-auto h-1 w-6 rounded-b-[3px] rounded-t-[2px] border border-[#7a7367] bg-[#c7c0b2]"
+    ></span>
+  </a>
+</header>

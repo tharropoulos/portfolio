@@ -1,0 +1,19 @@
+---
+// A page's title cell on the rule, with the contact in a box on its right and where I'm
+// based in a strip under the title. Pass the title cell as the slot. On phones the
+// three stack: title, place, contact.
+import Contact from "@/components/raw/contact.astro";
+---
+
+<div
+  class="relative grid [--card:clamp(300px,22vw,400px)] min-[900px]:grid-cols-[minmax(0,1fr)_var(--card)]"
+>
+  <slot />
+  <Contact />
+  {/* The box's left edge, drawn on its own so the push can stretch it with the box: as a
+      border it would be two lengths crossfading, and its top would fade (see index.css). */}
+  <span
+    aria-hidden="true"
+    class="push-rule pointer-events-none absolute inset-y-0 right-[calc(var(--card)_-_2px)] hidden w-0.5 bg-ink min-[900px]:block"
+  ></span>
+</div>

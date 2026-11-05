@@ -1,0 +1,18 @@
+---
+interface Props {
+  href: string;
+  external?: boolean;
+}
+
+const { href, external = false } = Astro.props;
+---
+
+<a
+  href={href}
+  class="relative inline-flex gap-1 font-dm-mono text-label lowercase transition-colors duration-150 ease-out hover:text-ink-3 active:text-ink-3 pointer-coarse:before:absolute pointer-coarse:before:-inset-y-3.5 pointer-coarse:before:inset-x-0"
+  {...external ? { target: "_blank", rel: "noreferrer" } : {}}
+>
+  <slot />
+  {/* ↗ only for links that leave the site; the site’s own pages take →. */}
+  <span class="inline-block" aria-hidden="true">{href.startsWith("http") ? "↗" : "→"}</span>
+</a>

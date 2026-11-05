@@ -1,0 +1,86 @@
+---
+// The page's sections, numbered, in a concrete rail kept in view beside them. Wide
+// screens only: on phones each section's own label heads it. A section can list what's
+// in it under its name, like the roles on the work page.
+import { slug } from "@/lib/utils";
+
+export interface RailSection {
+  label: string;
+  items?: { href: string; label: string; meta: string }[];
+}
+
+interface Props {
+  sections: RailSection[];
+}
+
+const { sections } = Astro.props;
+// Hover fills run to the rail's edges, and the hit areas reach 40px, 44px on touch.
+const row =
+  "px-4 transition-colors duration-150 ease-out hover:bg-ink/[0.07] active:bg-ink/[0.07]";
+---
+
+<nav
+  aria-label="Sections"
+  class="hidden border-r-2 border-ink bg-concrete bg-noise min-[900px]:block"
+>
+  <ol class="sticky top-0 py-3.5">
+    {
+      sections.map(({ label, items }, i) => (
+        <li>
+          <a
+            href={`#${slug(label)}`}
+            class:list={[
+              row,
+              "grid grid-cols-[2em_minmax(0,1fr)] py-2.5 font-dm-mono text-label lowercase leading-5 pointer-coarse:py-3",
+            ]}
+          >
+            <span class="tabular-nums text-teal-ink">{String(i + 1).padStart(2, "0")}</span>
+            {label}
+          </a>
+          {items && (
+            <ol class="pb-2">
+              {items.map((item) => (
+                <li>
+                  {/* Indented past the number, onto the section name's edge. */}
+                  <a
+                    href={item.href}
+                    class:list={[
+                      row,
+                      "grid min-h-10 grid-cols-[minmax(0,1fr)_auto] items-baseline gap-3 py-2 pl-[calc(16px_+_var(--body)_*_25_/_16.5)] pointer-coarse:min-h-11",
+                    ]}
+                  >
+                    {/* A step under the section's name, so they read as its entries. */}
+                    <span class="text-meta font-[560]">{item.label}</span>
+                    <span class="font-dm-mono text-label tabular-nums text-ink-3">
+                      {item.meta}
+                    </span>
+                  </a>
+                </li>
+              ))}
+            </ol>
+          )}
+        </li>
+      ))
+    }
+  </ol>
+</nav>
+
+<script>
+  // The router jumps to a section by setting location.href, and the browser scrolls there
+  // as <html>'s scroll-behavior says. It's smooth for that one scroll only: left on, it
+  // would also ease the router's scroll restores on back and forward. The router listens
+  // on the document too, so this one runs first, in the capture phase.
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)");
+  const root = document.documentElement;
+
+  document.addEventListener(
+    "click",
+    (e) => {
+      const link = (e.target as Element).closest('nav[aria-label="Sections"] a[href^="#"]');
+      if (!link || reduce.matches) return;
+      root.style.scrollBehavior = "smooth";
+      setTimeout(() => root.style.removeProperty("scroll-behavior"));
+    },
+    { capture: true },
+  );
+</script>

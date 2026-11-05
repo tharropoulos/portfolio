@@ -1,0 +1,39 @@
+---
+// One of a page's sections (see sections.astro). On phones a concrete label cell heads
+// it. On wide screens the label is the section's title, cast like the page titles and
+// numbered like the rail, over a column centred in the space beside the rail.
+import { slug } from "@/lib/utils";
+
+interface Props {
+  label: string;
+  // Takes what's left of a short page. On phones the label is a row of its own, so the
+  // room goes to the body under it.
+  fill?: boolean;
+}
+
+const { label, fill = false } = Astro.props;
+---
+
+<section
+  id={slug(label)}
+  aria-label={label}
+  class:list={[
+    "raw-section grid scroll-mt-4 border-b-2 border-ink last-of-type:border-b-0 min-[900px]:block min-[900px]:px-[max(32px,(100%_-_1120px)_/_2)] min-[900px]:pb-10 min-[900px]:pt-16",
+    fill && "flex-1 grid-rows-[auto_1fr] min-[900px]:grid-rows-none",
+  ]}
+>
+  {/* The link sits on the number's line, at the column's far edge. */}
+  <div
+    class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 border-b-2 border-ink bg-concrete bg-noise px-4 py-[18px] min-[900px]:mb-4 min-[900px]:gap-x-8 min-[900px]:gap-y-3 min-[900px]:border-b-0 min-[900px]:bg-transparent min-[900px]:bg-none min-[900px]:p-0"
+  >
+    <h2
+      class="raw-section-title font-dm-mono text-label lowercase min-[900px]:text-balance min-[900px]:font-cast min-[900px]:text-[clamp(56px,4.8vw,104px)] min-[900px]:font-[820] min-[900px]:leading-[0.9] min-[900px]:tracking-[-0.005em] min-[900px]:[font-stretch:62%]"
+    >
+      {label}
+    </h2>
+    <slot name="link" />
+  </div>
+  <div class="px-4 min-[900px]:px-0">
+    <slot />
+  </div>
+</section>

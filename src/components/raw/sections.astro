@@ -1,0 +1,23 @@
+---
+// A page's body: its sections beside the rail that indexes them. List them in the order
+// the page's Sections come, under the same labels, since the rail links to each by its
+// label. It grows to fill a short page, so a section marked fill can take the rest.
+import type { RailSection } from "@/components/raw/rail.astro";
+
+import Rail from "@/components/raw/rail.astro";
+
+interface Props {
+  sections: RailSection[];
+}
+
+const { sections } = Astro.props;
+---
+
+<main
+  class="push-page flex flex-1 flex-col min-[900px]:grid min-[900px]:grid-cols-[264px_minmax(0,1fr)]"
+>
+  <Rail sections={sections} />
+  <div class="raw-sections flex flex-1 flex-col">
+    <slot />
+  </div>
+</main>

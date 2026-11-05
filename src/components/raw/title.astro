@@ -1,0 +1,17 @@
+---
+// A page's title cell, cast like the name on the front page and set on the rule the same
+// way, in the masthead beside the contact. It's the cell the push between pages moves
+// (see push.ts).
+import Masthead from "@/components/raw/masthead.astro";
+---
+
+<Masthead>
+  <section aria-labelledby="title" class="push-hero overflow-hidden px-4 pt-6 [container-type:inline-size]">
+    <h1
+      id="title"
+      class="hero-cast mb-[round(-0.12em,1px)] font-cast font-[900] lowercase leading-[round(0.9em,1px)] tracking-[-0.005em] [font-stretch:62%]"
+    >
+      <slot />
+    </h1>
+  </section>
+</Masthead>

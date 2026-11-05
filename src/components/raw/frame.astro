@@ -1,0 +1,29 @@
+---
+// Raw: exposed structure. A black frame around the page, its own header and the teal
+// footer. Pages put their cells in the slot. The fonts are in BaseLayout's head.
+import Footer from "@/components/raw/footer.astro";
+import Header from "@/components/raw/header.astro";
+
+interface Props {
+  currentPath: string;
+}
+
+const { currentPath } = Astro.props;
+---
+
+<div
+  class="raw min-h-dvh bg-paper font-inter text-body leading-[1.55] text-ink antialiased selection:bg-[oklch(0.88_0.06_190)] selection:text-[oklch(0.15_0_0)]"
+>
+  <div class="m-2 border-2 border-ink min-[700px]:m-4">
+    {/* The header and the page fill the first screen below the frame's margin and border,
+        so the footer always starts under the fold. A short page grows its last section to
+        get there. */}
+    <div
+      class="flex min-h-[calc(100dvh-10px)] flex-col min-[700px]:min-h-[calc(100dvh-18px)]"
+    >
+      <Header currentPath={currentPath} />
+      <slot />
+    </div>
+    <Footer currentPath={currentPath} />
+  </div>
+</div>
