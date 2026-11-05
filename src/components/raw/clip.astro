@@ -1,0 +1,55 @@
+---
+// A short screen recording that loops, in place of a GIF: a tenth of the bytes, and it can
+// be paused. It plays by itself only for people who haven't asked for less motion, and
+// only while it's on screen. Everyone else gets the poster and the controls.
+import { getImage } from "astro:assets";
+
+interface Props {
+  src: string;
+  poster: ImageMetadata;
+  label: string;
+}
+
+const { src, poster, label } = Astro.props;
+const still = await getImage({ src: poster, format: "webp" });
+---
+
+<video
+  data-clip
+  src={src}
+  poster={still.src}
+  width={poster.width}
+  height={poster.height}
+  aria-label={label}
+  muted
+  loop
+  playsinline
+  controls
+  preload="none"></video>
+
+<script>
+  const motion = matchMedia("(prefers-reduced-motion: no-preference)");
+
+  document.addEventListener("astro:page-load", () => {
+    for (const video of document.querySelectorAll<HTMLVideoElement>("video[data-clip]")) {
+      // Once someone pauses it themselves, it stays paused.
+      let held = false;
+      let leaving = false;
+      video.addEventListener("pause", () => {
+        if (!leaving) held = true;
+        leaving = false;
+      });
+      new IntersectionObserver(
+        ([entry]) => {
+          if (held || !motion.matches) return;
+          if (entry.isIntersecting) video.play().catch(() => {});
+          else if (!video.paused) {
+            leaving = true;
+            video.pause();
+          }
+        },
+        { threshold: 0.5 },
+      ).observe(video);
+    }
+  });
+</script>

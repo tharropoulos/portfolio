@@ -6,7 +6,9 @@ draft: false
 ---
 import { Image } from "astro:assets";
 
-import stochos from "@/assets/stochos.gif";
+import Clip from "@/components/raw/clip.astro";
+import stochos from "@/assets/stochos.mp4";
+import stochosPoster from "@/assets/stochos-poster.png";
 import setup from "@/assets/setup.jpg";
 import setup2022 from "@/assets/setup-2022.jpg";
 
@@ -58,13 +60,10 @@ I had come across a video on YouTube showcasing [mouseless](https://mouseless.cl
 A friend suggested creating an open-source alternative for it in Rust, targeting Wayland. Here's the thing though: by then, I'd alreaady gotten a MacBook Pro for work. And so, I ported it to macOS. It's called stochos (from the Greek στόχος, literally meaning target or goal), and it's available at [GitHub](https://github.com/museslabs/stochos). Credits to mouseless for inspiring this and if you want a more eye-pleasing and less terminal focused approach, you should totally use theirs, or [neru](https://github.com/y3owk1n/neru). I've even contributed a small PR to neru when I was using it, before porting stochos to macOS.
 
 <figure>
-  <Image
+  <Clip
     src={stochos}
-    alt="Screen recording of Plo playing chess by navigating the board with stochos's two-letter grid overlay"
-    widths={[800, 1200]}
-    sizes="(min-width: 768px) 42rem, 100vw"
-    format="webp"
-    class="h-full w-full object-cover"
+    poster={stochosPoster}
+    label="Screen recording of Plo playing chess by navigating the board with stochos's two-letter grid overlay"
   />
   <figcaption>
   	[Plo](https://github.com/ploMP4) playing chess using stochos
