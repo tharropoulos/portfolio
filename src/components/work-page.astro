@@ -1,0 +1,32 @@
+---
+import Entry from "@/components/raw/entry.astro";
+import Frame from "@/components/raw/frame.astro";
+import Section from "@/components/raw/section.astro";
+import Sections from "@/components/raw/sections.astro";
+import Title from "@/components/raw/title.astro";
+import { experiences, school } from "@/data/experiences";
+import { slug, years } from "@/lib/utils";
+
+// The whole career at a glance, kept in view beside the roles: the rail lists them under
+// Experience. Phones get the roles straight after the label, where an index would only
+// repeat them.
+const roles = experiences.map((job) => ({
+  href: `#${slug(job.company)}`,
+  label: job.company,
+  meta: years(job.timeframe),
+}));
+---
+
+<Frame currentPath="/work">
+  <Title>Work</Title>
+
+  <Sections sections={[{ label: "Experience", items: roles }, { label: "Education" }]}>
+    <Section label="Experience">
+      {experiences.map((job) => <Entry item={job} id={slug(job.company)} />)}
+    </Section>
+
+    <Section label="Education">
+      {school.map((item) => <Entry item={item} showLength={false} />)}
+    </Section>
+  </Sections>
+</Frame>

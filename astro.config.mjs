@@ -6,6 +6,9 @@ import { remarkReadingTime } from "./remark-reading-time.mjs";
 
 export default defineConfig({
   output: "static",
+  redirects: {
+    "/experience": "/work",
+  },
   build: {
     inlineStylesheets: "always",
   },

@@ -1,8 +1,8 @@
 ---
 import type { CollectionEntry } from "astro:content";
 
-import BackButton from "@/components/back-button";
 import Prose from "@/components/prose.astro";
+import Frame from "@/components/raw/frame.astro";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { formatBlogDate } from "@/lib/blog";
 
@@ -14,51 +14,66 @@ interface Props {
 const { post, minutesRead } = Astro.props;
 
 const publishedLabel = formatBlogDate(post.data.publishedAt);
-const updatedLabel = post.data.updatedAt
-  ? formatBlogDate(post.data.updatedAt)
-  : null;
 ---
 
 <BaseLayout
-  currentPath={`/blog/${post.id}`}
   title={`${post.data.title} | Fanis Tharropoulos`}
   description={post.data.description}
 >
-  <main class="container mx-auto flex min-h-screen w-full max-w-screen-sm flex-col bg-background pb-16">
-    <div class="animate-fadein-slide opacity-0 transition-all [--fadein-delay:10ms]">
+  <Frame currentPath={`/blog/${post.id}`}>
+    <main>
       <article>
-        <BackButton href="/blog" label="Back to writing" className="mb-4 mt-20 lg:mt-28" />
-
-        <header class="border-b border-border/70 pb-8 mt-6">
-          <div class="flex flex-wrap items-center gap-3 text-sm text-muted-foreground">
-            <time datetime={post.data.publishedAt.toISOString()}>{publishedLabel}</time>
-            {minutesRead && (
-              <span>{minutesRead}</span>
-            )}
-            {updatedLabel && (
-              <span>Updated {updatedLabel}</span>
-            )}
-          </div>
-          <h1 class="mt-2 text-4xl font-bold tracking-tight md:text-5xl">
+        {/* Cast like the page titles, but in its own case and with room for descenders,
+            since a post's title runs to a sentence. The way back, the date and the tags
+            share its cell, on the frame's edge like every page's title. It's the cell the
+            push moves, so its lines are whole pixels tall (see push.ts). */}
+        <header class="push-hero px-4 pb-8 pt-6 min-[900px]:pt-8">
+          <a
+            href="/blog"
+            class="relative inline-flex gap-1 font-dm-mono text-label lowercase leading-5 transition-colors duration-150 ease-out hover:text-ink-3 active:text-ink-3 pointer-coarse:before:absolute pointer-coarse:before:-inset-y-3.5 pointer-coarse:before:inset-x-0"
+          >
+            <span class="inline-block" aria-hidden="true">←</span>
+            All posts
+          </a>
+          <h1 class="mt-5 text-balance font-cast text-[clamp(44px,7vw,104px)] font-[820] leading-[round(0.95em,1px)] tracking-[-0.005em] [font-stretch:62%]">
             {post.data.title}
           </h1>
-          <p class="mt-3 max-w-2xl text-base leading-7 text-muted-foreground md:text-lg">
+          <p class="mt-5 max-w-[40ch] text-pretty text-[clamp(22px,2.3vw,28px)] leading-[round(1.35em,1px)] tracking-[-0.015em] text-ink-2">
             {post.data.description}
           </p>
+          <p class="mt-7 font-dm-mono text-meta leading-5 tabular-nums text-ink-3">
+            <time datetime={post.data.publishedAt.toISOString()} class="whitespace-nowrap">
+              {publishedLabel}
+            </time>
+            {minutesRead && <span class="whitespace-nowrap"> · {minutesRead}</span>}
+            {post.data.updatedAt && (
+              <span class="whitespace-nowrap">
+                {" · updated "}
+                <time datetime={post.data.updatedAt.toISOString()}>
+                  {formatBlogDate(post.data.updatedAt)}
+                </time>
+              </span>
+            )}
+          </p>
           {post.data.tags.length > 0 && (
-            <ul class="mt-4 flex flex-wrap gap-2">
+            <ul aria-label="Tags" class="mt-3 flex flex-wrap gap-1.5">
               {post.data.tags.map((tag) => (
-                <li class="rounded-full bg-muted px-3 py-1 text-xs font-medium uppercase tracking-[0.12em] text-foreground/80">
+                <li class="whitespace-nowrap border-hairline border-ink px-1.5 pb-0.5 pt-[3px] font-dm-mono text-label leading-[round(1.2em,1px)] text-ink-2">
                   {tag}
                 </li>
               ))}
             </ul>
           )}
         </header>
-        <Prose>
-          <slot />
-        </Prose>
+
+        {/* A rule across the frame, then the post in one column in the middle of it (see
+            .raw-prose). The rule is the body's own, so it rides with the page in a push. */}
+        <div class="push-page border-t-2 border-ink px-4 pb-14 pt-[18px] min-[900px]:px-8 min-[900px]:pt-12">
+          <Prose>
+            <slot />
+          </Prose>
+        </div>
       </article>
-    </div>
-  </main>
+    </main>
+  </Frame>
 </BaseLayout>
