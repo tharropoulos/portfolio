@@ -18,7 +18,7 @@ export const profile = {
     {
       id: "linkedin",
       label: "LinkedIn",
-      href: "https://www.linkedin.com/in/fanis-tharropoulos-78012622b/",
+      href: "https://www.linkedin.com/in/tharropoulos/",
     },
     {
       id: "x",
