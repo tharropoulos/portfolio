@@ -6,9 +6,8 @@ import {
   QueryClientProvider,
   useQuery,
 } from "@tanstack/react-query";
-import { AnimatePresence, motion, MotionConfig } from "motion/react";
+import { motion, MotionConfig } from "motion/react";
 
-import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
 
 type SearchItem =
@@ -21,15 +20,33 @@ const queryClient = new QueryClient({
 
 const dateFormat = new Intl.DateTimeFormat("en", { dateStyle: "medium" });
 
+// Solid blocks in the page's own colors: shipped in ink, in flight in teal. PRs closed
+// without merging stay off the list, since on a front page they read as rejected.
 const stateStyles = {
-  open: "bg-emerald-500/15 text-emerald-700 dark:text-emerald-300",
-  merged: "bg-violet-500/15 text-violet-700 dark:text-violet-300",
-  closed: "bg-red-500/15 text-red-700 dark:text-red-300",
+  merged: "bg-ink text-paper",
+  open: "bg-teal-ink text-paper",
 };
+type State = keyof typeof stateStyles;
 
-function stateOf(pr: SearchItem): keyof typeof stateStyles {
+const skeletonWidths = [72, 58, 80, 44, 64];
+
+// The row's parts, shared with the skeleton so both come out the same height.
+const row = "relative isolate border-t-hairline border-ink first:border-t-0";
+const body =
+  "-mx-4 flex flex-wrap items-baseline gap-x-2.5 gap-y-0.5 px-4 py-3.5";
+const badge =
+  "mt-0.5 self-start px-1.5 pb-0.5 pt-[3px] font-dm-mono text-badge leading-[1.2]";
+const repo =
+  "order-3 basis-full font-dm-mono text-meta tabular-nums text-ink-3 min-[700px]:order-1 min-[700px]:basis-auto";
+const date =
+  "order-1 ml-auto whitespace-nowrap font-dm-mono text-meta tabular-nums text-ink-3 min-[700px]:order-2";
+const title =
+  "order-2 mt-1.5 basis-full text-pretty text-body-lg font-[520] min-[700px]:order-3";
+const bone = "bg-ink/[0.08] text-transparent";
+
+function stateOf(pr: SearchItem): State | null {
   if (pr.pull_request?.merged_at) return "merged";
-  return pr.state === "open" ? "open" : "closed";
+  return pr.state === "open" ? "open" : null;
 }
 
 function repoOf(pr: SearchItem) {
@@ -54,19 +71,25 @@ function PullRequestList({
         q: `author:${username} type:pr is:public`,
         sort: "created",
         order: "desc",
-        per_page: count,
+        // Spares for the closed ones dropped below.
+        per_page: count * 2,
       });
-      return data.items;
+      return data.items
+        .flatMap((pr) => {
+          const state = stateOf(pr);
+          return state ? [{ pr, state }] : [];
+        })
+        .slice(0, count);
     },
   });
 
   if (isError) {
     return (
-      <p className="text-sm text-muted-foreground md:text-base">
+      <p className="py-[18px] text-ink-2">
         Couldn't load pull requests right now.{" "}
         <a
           href={`https://github.com/pulls?q=author%3A${username}+is%3Apr`}
-          className="font-extrabold text-teal-600 hover:underline dark:text-teal-300"
+          className="underline decoration-[1.5px] underline-offset-[0.2em]"
         >
           See them on GitHub
         </a>
@@ -75,76 +98,95 @@ function PullRequestList({
     );
   }
 
-  const rows = isPending ? Array.from({ length: count }, () => null) : prs;
-
   return (
-    <ul className="flex flex-col" aria-busy={isPending}>
-      {rows.map((pr, index) => (
-        <li
-          key={index}
-          className="border-b border-muted py-4 first:pt-0 last:border-none"
-        >
-          <AnimatePresence mode="wait" initial={false}>
-            {pr ?
-              <PullRequestRow key={pr.id} pr={pr} index={index} />
-            : <motion.div
-                key="skeleton"
-                className="flex flex-col gap-2"
-                exit={{ opacity: 0, x: 12, filter: "blur(4px)" }}
-                transition={{ duration: 0.15, delay: index * 0.07 }}
-              >
-                <Skeleton className="h-5 w-3/4" />
-                <Skeleton className="h-4 w-1/3" />
-              </motion.div>
-            }
-          </AnimatePresence>
-        </li>
-      ))}
+    <ul aria-busy={isPending}>
+      {isPending ?
+        Array.from({ length: count }, (_, i) => (
+          <SkeletonRow
+            key={i}
+            width={skeletonWidths[i % skeletonWidths.length]}
+          />
+        ))
+      : prs.map(({ pr, state }, i) => (
+          <PullRequestRow key={pr.id} pr={pr} state={state} index={i} />
+        ))
+      }
     </ul>
   );
 }
 
-function PullRequestRow({ pr, index }: { pr: SearchItem; index: number }) {
-  const state = stateOf(pr);
+// The row with its text hidden behind blocks. The title takes two lines on phones, where
+// most titles wrap, and one above.
+function SkeletonRow({ width }: { width: number }) {
   return (
-    <motion.a
-      href={pr.html_url}
-      target="_blank"
-      rel="noreferrer"
-      className="group flex flex-col gap-1"
-      initial={{ opacity: 0, y: 14, filter: "blur(8px)" }}
-      animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-      transition={{ type: "spring", bounce: 0.4, duration: 0.6 }}
-    >
-      <span className="text-sm font-semibold leading-6 transition-colors duration-200 group-hover:text-teal-600 dark:text-zinc-200 dark:group-hover:text-teal-300 md:text-base">
-        {pr.title}
-      </span>
-      <span className="flex flex-wrap items-center gap-2 text-xs text-muted-foreground md:text-sm">
-        <motion.span
+    <li className={cn(row, "select-none")} aria-hidden="true">
+      <div className={body}>
+        <span className={cn(badge, bone)}>merged</span>
+        <span className={repo}>
+          <span className={bone}>typesense/typesense #0000</span>
+        </span>
+        <span className={date}>
+          <span className={bone}>Nov 4, 2026</span>
+        </span>
+        <span
           className={cn(
-            "rounded-full px-2 py-0.5 text-xs font-medium capitalize",
-            stateStyles[state],
+            title,
+            "flex h-[2lh] flex-col justify-evenly min-[700px]:h-[1lh]",
           )}
-          initial={{ scale: 0, rotate: -4 }}
-          animate={{ scale: 1, rotate: 0 }}
-          transition={{
-            type: "spring",
-            bounce: 0.2,
-            duration: 0.5,
-            delay: 0.15 + index * 0.03,
-          }}
         >
-          {state}
-        </motion.span>
-        <span>
+          <span
+            className="h-[0.8em] bg-ink/[0.08]"
+            style={{ width: `${width}%` }}
+          />
+          <span className="h-[0.8em] w-2/5 bg-ink/[0.08] min-[700px]:hidden" />
+        </span>
+      </div>
+    </li>
+  );
+}
+
+// State and repo share a line with the date, then the title. On phones the repo can't
+// fit beside the date: state and date first, then the title, then the repo.
+function PullRequestRow({
+  pr,
+  state,
+  index,
+}: {
+  pr: SearchItem;
+  state: State;
+  index: number;
+}) {
+  return (
+    <motion.li
+      className={row}
+      initial={{ opacity: 0, y: 8 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{
+        type: "spring",
+        bounce: 0,
+        visualDuration: 0.2,
+        delay: index * 0.04,
+      }}
+    >
+      <a
+        href={pr.html_url}
+        target="_blank"
+        rel="noreferrer"
+        className={cn(
+          body,
+          "transition-colors duration-150 ease-out hover:bg-wash active:bg-wash",
+        )}
+      >
+        <span className={cn(badge, stateStyles[state])}>{state}</span>
+        <span className={repo}>
           {repoOf(pr)} #{pr.number}
         </span>
-        <span aria-hidden="true">·</span>
-        <time dateTime={pr.created_at}>
+        <time className={date} dateTime={pr.created_at}>
           {dateFormat.format(new Date(pr.created_at))}
         </time>
-      </span>
-    </motion.a>
+        <span className={title}>{pr.title}</span>
+      </a>
+    </motion.li>
   );
 }
 
