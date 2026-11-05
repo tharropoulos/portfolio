@@ -1,5 +1,4 @@
 import tailwindcssAnimate from "tailwindcss-animate";
-import typography from "@tailwindcss/typography";
 import plugin from "tailwindcss/plugin";
 
 // Raw's palette lives in src/index.css as oklch channels, so opacity modifiers work.
@@ -22,26 +21,12 @@ export default {
   theme: {
   	extend: {
 		keyframes: {
-			'pan-zoom': {
-				'0%': { transform: 'scale(1.1) translate(-3%, -1%)', opacity: 0.3 },
-				'100%': { transform: 'scale(1) translate(0%, 0%)', opacity: 1 }
-			},
 			fadein: {
 				from: {
 				opacity: "0",
 				},
 				to: {
 				opacity: "1",
-				},
-			},
-			'fadein-slide': {
-				from: {
-				opacity: "0",
-				transform: 'translateY(20px)'
-				},
-				to: {
-				opacity: "1",
-				transform: 'translateY(0)'
 				},
 			},
 			text: {
@@ -56,14 +41,11 @@ export default {
 			}
 		},
 		animation: {
-			'pan-zoom': 'pan-zoom 0.6s ease-out forwards',
 			fadein: "fadein 1s ease var(--fadein-delay, 0) forwards",
-			'fadein-slide': "fadein-slide 0.5s ease var(--fadein-delay, 0) forwards",
 			text: "text 5s ease infinite",
 			textfadein: "fadein 1s ease var(--fadein-delay, 0) forwards, text 5s ease infinite",
 		},
 		fontFamily: {
-			logo: ["Gloria Hallelujah", "sans"],
 			cast: ['"Archivo Variable"', "system-ui", "sans-serif"],
 			inter: ['"Inter Variable"', '"Inter Fallback"', "system-ui", "sans-serif"],
 			"dm-mono": ['"DM Mono"', "ui-monospace", "Menlo", "monospace"],
@@ -157,7 +139,6 @@ export default {
   },
   plugins: [
 	tailwindcssAnimate,
-	typography,
 	plugin(({ addVariant }) => addVariant("pointer-coarse", "@media (pointer: coarse)")),
   ],
 };
