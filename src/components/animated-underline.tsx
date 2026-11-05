@@ -115,6 +115,7 @@ export function AnimatedUnderline({
               animate={
                 inView ? { pathLength: 1, d: paths } : { pathLength: 0 }
               }
+              // One pass of the morph, so it settles within five seconds of starting.
               transition={{
                 pathLength: {
                   duration: 1.5,
@@ -125,7 +126,6 @@ export function AnimatedUnderline({
                   duration: 2.4,
                   ease: "easeInOut",
                   delay: animationDelay + 1.7,
-                  repeat: variant === "target" ? 1 : Number.POSITIVE_INFINITY,
                 },
               }}
               strokeWidth={strokeWidth}
