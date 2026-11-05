@@ -35,7 +35,6 @@ const rawFonts = [archivoFaces, interFaces, dmMono400Faces, dmMono500Faces].join
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-    <Analytics />
     <title>{title}</title>
     <link rel="preload" href={archivo} as="font" type="font/woff2" crossorigin />
     <link rel="preload" href={inter} as="font" type="font/woff2" crossorigin />
@@ -51,5 +50,9 @@ const rawFonts = [archivoFaces, interFaces, dmMono400Faces, dmMono500Faces].join
   </head>
   <body class="bg-paper">
     <slot />
+    {/* Not in the head: its custom element would end the head there, and push the title,
+        the font preloads and the styles after it into the body, to be swapped out on every
+        navigation. */}
+    <Analytics />
   </body>
 </html>
