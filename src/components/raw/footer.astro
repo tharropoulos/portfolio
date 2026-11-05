@@ -42,6 +42,8 @@ const small =
     </ul>
   </nav>
   <div class="mt-8 flex gap-x-6 font-dm-mono text-label lowercase text-paper/70">
+    {/* A feed, not a page: the router would fetch it only to hand it to the browser. */}
+    <a href="/blog/rss.xml" data-astro-reload class={small}>RSS</a>
     <a href="/retro/" class={small}>Retro version</a>
   </div>
 </footer>
