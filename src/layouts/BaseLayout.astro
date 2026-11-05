@@ -1,4 +1,10 @@
 ---
+import archivo from "@fontsource-variable/archivo/files/archivo-latin-wdth-normal.woff2?url";
+import inter from "@fontsource-variable/inter/files/inter-latin-opsz-normal.woff2?url";
+import archivoFaces from "@fontsource-variable/archivo/wdth.css?inline";
+import interFaces from "@fontsource-variable/inter/opsz.css?inline";
+import dmMono400Faces from "@fontsource/dm-mono/400.css?inline";
+import dmMono500Faces from "@fontsource/dm-mono/500.css?inline";
 import Analytics from "@vercel/analytics/astro";
 import { ClientRouter } from "astro:transitions";
 import Navbar from "@/components/main-nav";
@@ -24,6 +30,11 @@ const links = [
 ];
 const showScrollProgressBar =
   currentPath === "/" || (currentPath.startsWith("/blog/") && currentPath !== "/blog");
+
+// Raw's faces sit in one style the router keeps across navigations. Swapped in with each
+// page they'd be registered anew, and the page would set in the fallback for a frame:
+// long enough for a view transition to capture it and reflow when it ends.
+const rawFonts = [archivoFaces, interFaces, dmMono400Faces, dmMono500Faces].join("\n");
 ---
 
 <!doctype html>
@@ -38,6 +49,9 @@ const showScrollProgressBar =
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <Analytics />
     <title>{title}</title>
+    <link rel="preload" href={archivo} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={inter} as="font" type="font/woff2" crossorigin />
+    <style is:inline set:html={rawFonts} data-astro-transition-persist="raw-fonts" />
   </head>
   <body>
     <div class="flex min-h-screen w-full flex-col items-center bg-background">

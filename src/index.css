@@ -1,14 +1,38 @@
 @import "@fontsource/gloria-hallelujah";
-@import "@fontsource/inter";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* Arial sized to Inter's measure, so text that sets before Inter arrives keeps its line
+   breaks when it does. Widths measured over the posts and the work page, Inter Variable
+   at 400 and 640 against Arial and Arial Bold; ascent and descent are Inter's (1984 and
+   494 on 2048) over the same size. Phones without Arial fall through to system-ui. */
+@font-face {
+  font-family: "Inter Fallback";
+  src: local("Arial"), local("ArialMT");
+  font-weight: 100 549;
+  size-adjust: 104.98%;
+  ascent-override: 92.28%;
+  descent-override: 22.98%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: "Inter Fallback";
+  src: local("Arial Bold"), local("Arial-BoldMT");
+  font-weight: 550 900;
+  size-adjust: 100.02%;
+  ascent-override: 96.86%;
+  descent-override: 24.12%;
+  line-gap-override: 0%;
+}
+
 @layer base {
   html {
     scrollbar-gutter: stable;
+    /* Raw's own face (see BaseLayout), so the text outside the frame doesn't fetch a
+       second Inter. */
     font-family:
-      Inter,
+      "Inter Variable",
       system-ui,
       -apple-system,
       BlinkMacSystemFont,
@@ -56,6 +80,27 @@
     --chart-4: 43 74% 66%;
 
     --chart-5: 27 87% 67%;
+
+    /* Raw: paper, ink and concrete, with teal as the one color. Light only. */
+    --paper: 0.975 0.002 90;
+    --ink: 0.14 0 0;
+    --ink-2: 0.3 0 0;
+    --ink-3: 0.44 0 0;
+    --concrete: 0.87 0.004 80;
+    --wash: 0.935 0.004 80;
+    --teal: 0.58 0.11 188;
+    --teal-ink: 0.45 0.09 192;
+    --teal-deep: 0.3 0.055 198;
+    --hairline: 1px;
+    /* The body every size in Raw is a step of (see fontSize in tailwind.config.js):
+       16.5px, growing from 900px wide to 19.5px at 1920px and holding there. */
+    --body: clamp(16.5px, 16.5px + 3 * (100vw - 900px) / 1020, 19.5px);
+  }
+
+  @media (min-resolution: 2dppx) {
+    :root {
+      --hairline: 0.5px;
+    }
   }
 
   .dark {
