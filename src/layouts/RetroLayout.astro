@@ -4,11 +4,14 @@ import Analytics from "@vercel/analytics/astro";
 interface Props {
   title?: string;
   description?: string;
+  // The styled page this one copies, which search engines should list instead.
+  styled: string;
 }
 
 const {
   title = "Fanis Tharropoulos | Retro",
   description = "Retro version of Fanis Tharropoulos' portfolio.",
+  styled,
 } = Astro.props;
 ---
 
@@ -18,6 +21,7 @@ const {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
+    <link rel="canonical" href={new URL(styled, Astro.site)} />
     <Analytics />
     <title>{title}</title>
   </head>
