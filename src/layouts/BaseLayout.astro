@@ -40,6 +40,14 @@ const rawFonts = [archivoFaces, interFaces, dmMono400Faces, dmMono500Faces].join
     <link rel="preload" href={archivo} as="font" type="font/woff2" crossorigin />
     <link rel="preload" href={inter} as="font" type="font/woff2" crossorigin />
     <style is:inline set:html={rawFonts} data-astro-transition-persist="raw-fonts" />
+    {/* The router takes scrolling over from the browser, and a reload inherits that: the
+        page paints at the top until the router's script loads and scrolls it back down.
+        Handing scrolling back on the way out lets the browser restore the reload before
+        its first paint, and taking it again on show leaves back and forward to the router. */}
+    <script is:inline>
+      addEventListener("pagehide", () => (history.scrollRestoration = "auto"));
+      addEventListener("pageshow", () => (history.scrollRestoration = "manual"));
+    </script>
   </head>
   <body class="bg-paper">
     <slot />
