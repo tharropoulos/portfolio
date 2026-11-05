@@ -26,7 +26,7 @@ export const profile = {
       href: "https://x.com/ftharropoulos",
     },
   ],
-  email: "ftharropulos@gmail.com",
+  email: "ftharropoulos@gmail.com",
   about: [
     {
       before: "I'm a Software Engineer at ",
