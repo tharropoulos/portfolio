@@ -1,4 +1,4 @@
-import { motion } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 
 import { cn } from "@/lib/utils";
@@ -90,6 +90,8 @@ export function AnimatedUnderline({
   const ref = useRef<HTMLSpanElement>(null);
   const width = useElementWidth(ref);
   const inView = useInViewOnce(ref);
+  // Reduced motion gets the finished underline at once: no draw, no morph.
+  const reduce = useReducedMotion();
   const paths = pathBuilders[variant](width);
 
   return (
@@ -100,8 +102,10 @@ export function AnimatedUnderline({
           className="absolute left-0 -mt-1.5 w-full overflow-hidden"
           style={{ height: "10px", top: "100%" }}
           initial={{ opacity: 0 }}
-          animate={{ opacity: inView ? 1 : 0 }}
-          transition={{ duration: 0.3, delay: animationDelay }}
+          animate={{ opacity: inView || reduce ? 1 : 0 }}
+          transition={
+            reduce ? { duration: 0 } : { duration: 0.3, delay: animationDelay }
+          }
         >
           <svg
             viewBox={`0 0 ${width} 10`}
@@ -113,21 +117,28 @@ export function AnimatedUnderline({
               d={paths[0]}
               initial={{ pathLength: 0 }}
               animate={
-                inView ? { pathLength: 1, d: paths } : { pathLength: 0 }
+                reduce ? { pathLength: 1 }
+                : inView ?
+                  { pathLength: 1, d: paths }
+                : { pathLength: 0 }
               }
               // One pass of the morph, so it settles within five seconds of starting.
-              transition={{
-                pathLength: {
-                  duration: 1.5,
-                  ease: [0.4, 0, 0.2, 1],
-                  delay: animationDelay + 0.2,
-                },
-                d: {
-                  duration: 2.4,
-                  ease: "easeInOut",
-                  delay: animationDelay + 1.7,
-                },
-              }}
+              transition={
+                reduce ?
+                  { duration: 0 }
+                : {
+                    pathLength: {
+                      duration: 1.5,
+                      ease: [0.4, 0, 0.2, 1],
+                      delay: animationDelay + 0.2,
+                    },
+                    d: {
+                      duration: 2.4,
+                      ease: "easeInOut",
+                      delay: animationDelay + 1.7,
+                    },
+                  }
+              }
               strokeWidth={strokeWidth}
               strokeLinecap="round"
               strokeLinejoin="round"

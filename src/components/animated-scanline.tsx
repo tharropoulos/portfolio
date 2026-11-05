@@ -1,4 +1,4 @@
-import { motion } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 
 import { cn } from "@/lib/utils";
@@ -46,6 +46,9 @@ export function AnimatedScanline({
 }: AnimatedScanlineProps) {
   const ref = useRef<HTMLSpanElement>(null);
   const inView = useInViewOnce(ref);
+  // Reduced motion skips the scanlines and the sweep and leaves the underline drawn.
+  const reduce = useReducedMotion();
+  const play = inView && !reduce;
 
   return (
     <span ref={ref} className={cn("relative inline-block", className)}>
@@ -54,7 +57,7 @@ export function AnimatedScanline({
         className="pointer-events-none absolute -inset-x-0.5 -inset-y-0.5 overflow-hidden"
         style={{ backgroundImage: SCANLINES }}
         initial={{ opacity: 0 }}
-        animate={inView ? { opacity: [0, 1, 1, 0] } : { opacity: 0 }}
+        animate={play ? { opacity: [0, 1, 1, 0] } : { opacity: 0 }}
         transition={{
           duration: 5.4,
           times: [0, 0.05, 0.92, 1],
@@ -66,7 +69,7 @@ export function AnimatedScanline({
           className="absolute inset-y-0 w-1/2"
           style={{ backgroundImage: SHIMMER }}
           initial={{ x: "-110%" }}
-          animate={inView ? { x: "220%" } : { x: "-110%" }}
+          animate={play ? { x: "220%" } : { x: "-110%" }}
           transition={{
             duration: 1.5,
             ease: "easeInOut",
@@ -81,12 +84,12 @@ export function AnimatedScanline({
         aria-hidden
         className="pointer-events-none absolute bottom-0 left-0 h-0.5 w-full origin-left bg-current"
         initial={{ scaleX: 0 }}
-        animate={inView ? { scaleX: 1 } : { scaleX: 0 }}
-        transition={{
-          duration: 0.91,
-          ease: "easeInOut",
-          delay: animationDelay + 3.62,
-        }}
+        animate={inView || reduce ? { scaleX: 1 } : { scaleX: 0 }}
+        transition={
+          reduce ?
+            { duration: 0 }
+          : { duration: 0.91, ease: "easeInOut", delay: animationDelay + 3.62 }
+        }
       />
     </span>
   );
