@@ -45,7 +45,7 @@ export const profile = {
   ],
   coauthoredOrg: {
     label: "museslabs",
-    href: "https://github.com/museslabs",
+    href: "https://museslabs.org",
     site: {
       label: "museslabs.org",
       href: "https://museslabs.org",
@@ -54,21 +54,21 @@ export const profile = {
   coauthoredProjects: [
     {
       name: "Kyma",
-      href: "https://github.com/museslabs/kyma",
+      href: "https://museslabs.org/#kyma",
       description:
         "(κῦμα) is a TUI presentation tool focused on eye candy and ease of use.",
       animation: "wave",
     },
     {
       name: "Stochos",
-      href: "https://github.com/museslabs/stochos",
+      href: "https://museslabs.org/#stochos",
       description:
         "(στόχος) is a keyboard-driven mouse control overlay for Wayland, X11, and macOS.",
       animation: "target",
     },
     {
       name: "Phonto",
-      href: "https://github.com/museslabs/phonto",
+      href: "https://museslabs.org/#phonto",
       description:
         "(φόντο) is a GPU-accelerated video wallpaper program for Wayland compositors and macOS.",
       animation: "scanline",
