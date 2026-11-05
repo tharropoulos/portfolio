@@ -1,0 +1,32 @@
+---
+import Frame from "@/components/raw/frame.astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Not found | Fanis Tharropoulos"
+  description="There's no page at this address."
+>
+  <Frame currentPath="/404">
+    {/* Set like a post's header (see BlogPostLayout): the way out on top, where it's read
+        first, then the title and what happened. It grows to keep the footer at the bottom. */}
+    <main class="flex-1">
+      <header class="push-hero px-4 pb-8 pt-6 [container-type:inline-size] min-[900px]:pt-8">
+        <a
+          href="/"
+          class="relative inline-flex gap-1 font-dm-mono text-label lowercase leading-5 transition-colors duration-150 ease-out hover:text-ink-3 active:text-ink-3 pointer-coarse:before:absolute pointer-coarse:before:-inset-y-3.5 pointer-coarse:before:inset-x-0"
+        >
+          <span class="inline-block" aria-hidden="true">←</span>
+          Front page
+        </a>
+        {/* Cast like the name on the front page and every page's title (see .hero-cast). */}
+        <h1 class="hero-cast mt-5 font-cast font-[900] leading-[round(0.9em,1px)] tracking-[-0.005em] [font-stretch:62%]">
+          404
+        </h1>
+        <p class="mt-5 max-w-[40ch] text-pretty text-[clamp(22px,2.3vw,28px)] leading-[round(1.35em,1px)] tracking-[-0.015em] text-ink-2">
+          There's no page at this address. It may have moved, or the link has a typo.
+        </p>
+      </header>
+    </main>
+  </Frame>
+</BaseLayout>
