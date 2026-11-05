@@ -26,7 +26,7 @@ export const experiences = [
       "I maintain and develop language clients across multiple programming languages and contribute to the core search engine. I also maintain other packages in the Typesense ecosystem including the web scraper, InstantSearch adapter, and Firestore extension. My role includes implementing new features, building demos and documentation, and supporting users through Slack, GitHub, and customer meetings. I focus on ensuring cross-platform compatibility and providing clear examples to help users integrate Typesense effectively.",
     ],
     skills: [
-      "Typescript",
+      "TypeScript",
       "PHP",
       "Java",
       "C++",
@@ -54,7 +54,7 @@ export const experiences = [
       "Developed an automated testing framework in TypeScript using WebdriverIO. I built a type-safe testing skeleton that enabled other testers to create automated tests efficiently, leading the project's transition from Java and Selenium. The framework focused on developer experience and ease of use, making it simpler for the team to implement reliable automated tests. When the opportunity to work on open source arose, I had to move on.",
     ],
     skills: [
-      "Typescript",
+      "TypeScript",
       "Java",
       "Selenium",
       "WebdriverIO",
@@ -74,7 +74,7 @@ export const experiences = [
     ],
     skills: [
       "Python",
-      "Typescript",
+      "TypeScript",
       "Django",
       "HTMX",
       "TailwindCSS",
@@ -91,6 +91,6 @@ export const experiences = [
     description: [
       "I helped develop a blockchain-based academic certificate issuance and validation system. Working in a two-person team, I built the web application using ASP.NET Core, integrating with the Dock API for blockchain operations. The system enables educational institutions to securely issue and verify academic credentials on the blockchain. I concluded my role to focus on completing my university studies.",
     ],
-    skills: ["C#", ".NET", "Web3", "Bootstrap", "Azure", "Razor", "Javascript"],
+    skills: ["C#", ".NET", "Web3", "Bootstrap", "Azure", "Razor", "JavaScript"],
   },
 ] as const satisfies Experience[];
