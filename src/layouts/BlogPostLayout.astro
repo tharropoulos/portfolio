@@ -19,6 +19,7 @@ const publishedLabel = formatBlogDate(post.data.publishedAt);
 <BaseLayout
   title={`${post.data.title} | Fanis Tharropoulos`}
   description={post.data.description}
+  published={post.data.publishedAt}
 >
   <Frame currentPath={`/blog/${post.id}`}>
     <main>
