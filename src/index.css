@@ -92,6 +92,9 @@
     --teal-ink: 0.45 0.09 192;
     --teal-deep: 0.3 0.055 198;
     --hairline: 1px;
+    /* The push between title cells, shared by index.css and push.ts. */
+    --push-duration: 400ms;
+    --push-ease: cubic-bezier(0.32, 0.72, 0, 1);
     /* The body every size in Raw is a step of (see fontSize in tailwind.config.js):
        16.5px, growing from 900px wide to 19.5px at 1920px and holding there. */
     --body: clamp(16.5px, 16.5px + 3 * (100vw - 900px) / 1020, 19.5px);
@@ -229,6 +232,14 @@
     width: var(--d);
     height: var(--d);
     margin-left: calc(var(--d) / -2);
+  }
+
+  /* Pushed in from /work, the name arrives already set, so it's held at rest until the
+     wordmark takes over without its entrance (see wordmark.tsx). */
+  [data-arrived] .wordmark-letter,
+  [data-arrived] .wordmark-dot {
+    opacity: 1 !important;
+    transform: none !important;
   }
 
   /* A title and its organisation. The dot leads the organisation in a gutter the title
@@ -453,4 +464,62 @@
   .container {
     @apply px-4;
   }
+}
+
+/* The push between title cells (see components/raw/push.ts). Outside the layers, since
+   Tailwind drops layered rules it can't match to a class. */
+:root[data-push] .push-hero {
+  view-transition-name: hero;
+  /* Opaque, so a masthead only one page has stays under it (see push.ts). */
+  background-color: oklch(var(--paper));
+}
+:root[data-push][data-push-contact] .push-based {
+  view-transition-name: based;
+}
+:root[data-push][data-push-contact] .push-contact {
+  view-transition-name: contact;
+}
+:root[data-push][data-push-contact] .push-rule {
+  view-transition-name: rule;
+}
+:root[data-push] .push-page {
+  view-transition-name: page;
+}
+
+/* Old and new share one timing, so their opacities always add up to one: what both pages
+   have in common, like the label column and the rules, holds still while the text
+   dissolves. */
+:root[data-push]::view-transition-group(*),
+:root[data-push]::view-transition-old(*),
+:root[data-push]::view-transition-new(*) {
+  animation-duration: var(--push-duration);
+  animation-timing-function: var(--push-ease);
+}
+
+/* The titles don't fade: push.ts slides them, and the cell clips them. A post's cell
+   spans the frame where a page's stops at the contact box, so each title keeps its own
+   width instead of stretching with the cell. */
+::view-transition-group(hero) {
+  overflow: clip;
+}
+::view-transition-old(hero),
+::view-transition-new(hero) {
+  inline-size: auto;
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+/* The contact box is as tall as the title beside it, and its contents sit on its bottom
+   edge, so both pages' are pinned there while the box grows or shrinks around them. */
+::view-transition-group(contact) {
+  overflow: clip;
+}
+::view-transition-old(contact),
+::view-transition-new(contact) {
+  inset-block: auto 0;
+}
+/* Its edge is a plain line, so both pages' stretch to the box's height as it changes. */
+::view-transition-old(rule),
+::view-transition-new(rule) {
+  block-size: 100%;
 }
