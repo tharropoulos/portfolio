@@ -221,6 +221,16 @@
     font-size: min(clamp(110px, max(25.5vw, min(33vw, 142px)), 420px), 100cqi / 2.55);
   }
 
+  /* The dot grows with the letter's weight and width, so it stays in proportion as the
+     name is recast. */
+  .wordmark-dot {
+    --d: calc(0.035em + var(--g) * 0.00018em + (var(--w) - 100) * 0.0006em);
+    top: 0.03em;
+    width: var(--d);
+    height: var(--d);
+    margin-left: calc(var(--d) / -2);
+  }
+
   /* A title and its organisation. The dot leads the organisation in a gutter the title
      clips, so it shows while both share a line and drops out when the organisation wraps. */
   .role-at {
