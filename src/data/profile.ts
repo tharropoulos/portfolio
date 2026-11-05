@@ -4,7 +4,7 @@ export const profile = {
   intro:
     "Hey, I'm Fanis, a software engineer living in Athens, Greece. This is where I share projects, experiences, and things I'm excited about.",
   photo: {
-    alt: "Laravel News Interview",
+    alt: "Eric Barnes and Fanis talking on the Laravel News set at Laracon EU",
     caption: "A quick chat with Eric Barnes at LaraconEU",
     date: "Mar 3, 2026",
   },
