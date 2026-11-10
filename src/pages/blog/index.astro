@@ -36,11 +36,14 @@ const posts = await getWriting();
                     {post.title}
                   </a>
                 </h3>
-                <p class="mt-1 font-dm-mono text-meta tabular-nums text-ink-3">
-                  <time datetime={post.date.toISOString()} class="whitespace-nowrap">
-                    {formatBlogDate(post.date)}
-                  </time>
-                  {post.minutesRead && <span class="whitespace-nowrap"> · {post.minutesRead}</span>}
+                {/* 3ch is a space either side of the dot in the mono. */}
+                <p class="mt-1 overflow-x-clip font-dm-mono text-meta tabular-nums text-ink-3">
+                  <span class="dot-list [--gutter:3ch]">
+                    <time datetime={post.date.toISOString()} class="whitespace-nowrap">
+                      {formatBlogDate(post.date)}
+                    </time>
+                    {post.minutesRead && <span class="whitespace-nowrap">{post.minutesRead}</span>}
+                  </span>
                 </p>
                 <p class="mt-3 max-w-[66ch] text-pretty text-ink-2">{post.description}</p>
                 {post.tags.length > 0 && (

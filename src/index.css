@@ -241,25 +241,27 @@
     transform: none !important;
   }
 
-  /* A title and its organisation. The dot leads the organisation in a gutter the title
-     clips, so it shows while both share a line and drops out when the organisation wraps. */
-  .role-at {
+  /* A title and its organisation, or a post's date, length and site. The dot leads each
+     item after the first in a gutter the parent clips, so it shows while they share a line
+     and drops out when one wraps. The gutter is 1em unless --gutter says otherwise. */
+  .role-at,
+  .dot-list {
     display: flex;
     flex-wrap: wrap;
     align-items: baseline;
-    margin-inline-start: -1em;
+    margin-inline-start: calc(var(--gutter, 1em) * -1);
   }
-  .role-at > * {
+  :is(.role-at, .dot-list) > * {
     display: flex;
     align-items: baseline;
   }
-  .role-at > *::before {
+  :is(.role-at, .dot-list) > *::before {
     content: "";
     flex: none;
-    width: 1em;
+    width: var(--gutter, 1em);
     text-align: center;
   }
-  .role-at > * + *::before {
+  :is(.role-at, .dot-list) > * + *::before {
     content: "·";
     content: "·" / "";
   }
