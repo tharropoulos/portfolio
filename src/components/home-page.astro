@@ -1,6 +1,5 @@
 ---
 import { Image } from "astro:assets";
-import { render } from "astro:content";
 
 import { AnimatedScanline } from "@/components/animated-scanline";
 import { AnimatedUnderline } from "@/components/animated-underline";
@@ -16,7 +15,7 @@ import { Wordmark } from "@/components/raw/wordmark";
 import laravelNewsImage from "@/assets/laravel-news.jpg";
 import { experiences } from "@/data/experiences";
 import { profile } from "@/data/profile";
-import { formatBlogDate, getPublishedBlogPosts } from "@/lib/blog";
+import { formatBlogDate, getWriting } from "@/lib/blog";
 import { years } from "@/lib/utils";
 
 const talkHref = "https://www.youtube.com/live/YJmuKPk3d9M?si=iWKlDUubbKp8PQC2&t=19071";
@@ -44,17 +43,7 @@ const scanlineColors = {
   underline: "oklch(var(--teal))",
 };
 
-const posts = await Promise.all(
-  (await getPublishedBlogPosts()).map(async (post) => {
-    const { remarkPluginFrontmatter } = await render(post);
-    return {
-      title: post.data.title,
-      href: `/blog/${post.id}/`,
-      date: post.data.publishedAt,
-      minutesRead: remarkPluginFrontmatter.minutesRead as string | undefined,
-    };
-  }),
-);
+const posts = await getWriting();
 ---
 
 <Frame currentPath="/">
