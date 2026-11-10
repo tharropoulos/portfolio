@@ -5,6 +5,7 @@ import { AnimatedScanline } from "@/components/animated-scanline";
 import { AnimatedUnderline } from "@/components/animated-underline";
 import LatestPullRequests from "@/components/latest-prs";
 import { Education } from "@/components/raw/education";
+import ExternalMark from "@/components/raw/external-mark.astro";
 import Frame from "@/components/raw/frame.astro";
 import Masthead from "@/components/raw/masthead.astro";
 import MonoLink from "@/components/raw/mono-link.astro";
@@ -218,7 +219,9 @@ const posts = await getWriting();
                 href={post.href}
                 class="-mx-4 grid grid-cols-[minmax(0,1fr)] items-baseline gap-0.5 px-4 py-3.5 transition-colors duration-150 ease-out hover:bg-wash active:bg-wash min-[700px]:grid-cols-[minmax(0,1fr)_auto] min-[700px]:gap-5"
               >
-                <span class="text-pretty font-[520]">{post.title}</span>
+                <span class="text-pretty font-[520]">
+                  {post.title}{post.venue && <ExternalMark venue={post.venue} />}
+                </span>
                 <span class="font-dm-mono text-meta tabular-nums text-ink-3">
                   <time datetime={post.date.toISOString()} class="whitespace-nowrap">
                     {formatBlogDate(post.date)}

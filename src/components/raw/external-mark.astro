@@ -1,0 +1,13 @@
+---
+// Closes the title of a post published on another site with the ↗ the site uses for links
+// that leave it. The no-break space keeps it on the last word's line. It's labelled rather
+// than followed by sr-only text, since an absolute span in the title keeps text-wrap: pretty
+// from fixing a lone last word.
+interface Props {
+  venue: string;
+}
+
+const { venue } = Astro.props;
+---
+
+<span class="text-ink-3">&nbsp;<span role="img" aria-label={`on ${venue}`}>↗</span></span>

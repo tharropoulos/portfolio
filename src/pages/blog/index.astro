@@ -1,4 +1,5 @@
 ---
+import ExternalMark from "@/components/raw/external-mark.astro";
 import Frame from "@/components/raw/frame.astro";
 import Section from "@/components/raw/section.astro";
 import Sections from "@/components/raw/sections.astro";
@@ -33,7 +34,7 @@ const posts = await getWriting();
                     href={post.href}
                     class="after:absolute after:inset-0 after:z-[1] focus-visible:outline-0"
                   >
-                    {post.title}
+                    {post.title}{post.venue && <ExternalMark venue={post.venue} />}
                   </a>
                 </h3>
                 {/* 3ch is a space either side of the dot in the mono. */}
@@ -43,6 +44,7 @@ const posts = await getWriting();
                       {formatBlogDate(post.date)}
                     </time>
                     {post.minutesRead && <span class="whitespace-nowrap">{post.minutesRead}</span>}
+                    {post.venue && <span class="whitespace-nowrap">{post.venue}</span>}
                   </span>
                 </p>
                 <p class="mt-3 max-w-[66ch] text-pretty text-ink-2">{post.description}</p>
