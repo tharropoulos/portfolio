@@ -1,6 +1,7 @@
 import { motion, useReducedMotion } from "motion/react";
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 
+import { useInViewOnce } from "@/lib/hooks";
 import { cn } from "@/lib/utils";
 
 interface AnimatedScanlineProps {
@@ -9,30 +10,6 @@ interface AnimatedScanlineProps {
   animationDelay?: number;
   // The scanlines, the light that sweeps across them and the underline left behind.
   colors: { line: string; shimmer: string; underline: string };
-}
-
-function useInViewOnce(ref: React.RefObject<HTMLElement | null>) {
-  const [inView, setInView] = useState(false);
-
-  useEffect(() => {
-    const node = ref.current;
-    if (!node) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setInView(true);
-          observer.disconnect();
-        }
-      },
-      { rootMargin: "0px 0px -150px 0px", threshold: 0.4 },
-    );
-
-    observer.observe(node);
-    return () => observer.disconnect();
-  }, [ref]);
-
-  return inView;
 }
 
 export function AnimatedScanline({

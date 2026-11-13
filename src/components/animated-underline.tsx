@@ -1,6 +1,7 @@
 import { motion, useReducedMotion } from "motion/react";
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 
+import { useElementWidth, useInViewOnce } from "@/lib/hooks";
 import { cn } from "@/lib/utils";
 
 export type AnimatedUnderlineVariant = "wave" | "target";
@@ -37,48 +38,6 @@ const pathBuilders = {
   wave: buildWavePaths,
   target: buildTargetPaths,
 } satisfies Record<AnimatedUnderlineVariant, (width: number) => string[]>;
-
-function useElementWidth(ref: React.RefObject<HTMLElement | null>) {
-  const [width, setWidth] = useState(0);
-
-  useEffect(() => {
-    const node = ref.current;
-    if (!node) return;
-
-    const measure = () => setWidth(node.offsetWidth);
-    measure();
-
-    const observer = new ResizeObserver(measure);
-    observer.observe(node);
-    return () => observer.disconnect();
-  }, [ref]);
-
-  return width;
-}
-
-function useInViewOnce(ref: React.RefObject<HTMLElement | null>) {
-  const [inView, setInView] = useState(false);
-
-  useEffect(() => {
-    const node = ref.current;
-    if (!node) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setInView(true);
-          observer.disconnect();
-        }
-      },
-      { rootMargin: "0px 0px -150px 0px", threshold: 0.4 },
-    );
-
-    observer.observe(node);
-    return () => observer.disconnect();
-  }, [ref]);
-
-  return inView;
-}
 
 export function AnimatedUnderline({
   children,
