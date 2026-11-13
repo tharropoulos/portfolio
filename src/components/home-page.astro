@@ -1,6 +1,7 @@
 ---
 import { Image } from "astro:assets";
 
+import { AnimatedCharm } from "@/components/animated-charm";
 import { AnimatedScanline } from "@/components/animated-scanline";
 import { AnimatedUnderline } from "@/components/animated-underline";
 import LatestPullRequests from "@/components/latest-prs";
@@ -42,6 +43,13 @@ const scanlineColors = {
   line: "oklch(var(--teal) / 0.25)",
   shimmer: "oklch(0.85 0.08 185 / 0.75)",
   underline: "oklch(var(--teal))",
+};
+const charmColors = {
+  cord: "oklch(var(--teal))",
+  body: "oklch(var(--teal))",
+  white: "oklch(0.975 0.012 190)",
+  sky: "oklch(0.8 0.085 192)",
+  pupil: "oklch(var(--teal-deep))",
 };
 
 const posts = await getWriting();
@@ -180,6 +188,10 @@ const posts = await getWriting();
                   >
                     {tool.name}
                   </AnimatedScanline>
+                ) : tool.animation === "charm" ? (
+                  <AnimatedCharm client:visible animationDelay={tool.delay} colors={charmColors}>
+                    {tool.name}
+                  </AnimatedCharm>
                 ) : (
                   <AnimatedUnderline
                     client:visible

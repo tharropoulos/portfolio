@@ -73,5 +73,12 @@ export const profile = {
         "(φόντο) is a GPU-accelerated video wallpaper program for Wayland compositors and macOS.",
       animation: "scanline",
     },
+    {
+      name: "Omma",
+      href: "https://museslabs.org/#omma",
+      description:
+        "(ὄμμα) is an eye-strain break reminder for the macOS menu bar.",
+      animation: "charm",
+    },
   ],
 } as const;
